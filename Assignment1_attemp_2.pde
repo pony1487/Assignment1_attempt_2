@@ -10,7 +10,14 @@ float padding;
 float centerX;
 float centerY;
 
+//fader and fader variables
+float faderX;
+float faderY;
+int faderWidth;
+int faderHeight;
+color faderColor;
 
+Fader fader;
 
 //arrays
 String[] menuArray = new String[5];
@@ -24,6 +31,16 @@ void setup()
   centerX = width / 2;
   centerY = height / 2;
   
+  //set up fader
+  //Do these have to be global???
+  faderX = 60;
+  faderY = height - 50;
+    
+  faderWidth = 125;
+  faderHeight = 20;
+  color faderColor = color(0,102,102);
+  
+  fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor);  
   
   
 }//end setup()
@@ -143,16 +160,19 @@ void drawFader()
     
     
     //fader variables
+    /*
     float faderX = panelX + 10;
     float faderY = height - 50;
     
     int faderWidth = 125;
     int faderHeight = 20;
     color c = color(0,102,102);
+    */
     
     
     //create Fader object
-    Fader fader = new Fader(faderX,faderY,faderWidth, faderHeight,c);
+    //happeing each frame and reseting the faders Y value??
+   // Fader fader = new Fader(faderX,faderY,faderWidth, faderHeight,c);
     
     //draw fader background
     stroke(98,117,8);
