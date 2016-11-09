@@ -15,7 +15,7 @@ String[] menuArray = new String[5];
 
 void setup()
 {
-  size(800,600);
+  size(1000,600);
   
   //init variables
   padding = 10;
@@ -33,6 +33,7 @@ void draw()
   
   drawLeftMenu();
   drawHeader();
+  drawFader();
   
   
 }//end draw()
@@ -122,3 +123,39 @@ void drawLeftMenu()
        rectY = rectY + 10;
    }
 }//drawLeftMenu()
+
+void drawFader()
+{
+    //This is messy and could be cleaned up
+    //back panel variables
+    float panelX = 50;
+    float panelY = height / 2;
+    
+    int panelHeight = 275;
+    int panelWidth = 150;
+    
+    //padding of box/panel/rect around the fader
+    float bottomPadding = (height / 2) - panelHeight;
+    float sidePadding = (panelWidth / 2) + panelX;
+    
+    
+    
+    //fader variables
+    float faderX;
+    float faderY;
+    
+    //draw fader background
+    stroke(98,117,8);
+    noFill();
+    rect(panelX, panelY - 25, panelWidth,panelHeight + 40);
+    
+    //draw line
+    
+    line(sidePadding, panelY, (panelWidth / 2) + panelX, height - bottomPadding);
+    
+    //draw fader
+    
+  
+  
+  
+}//end draw()Throttle
