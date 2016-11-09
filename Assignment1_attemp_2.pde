@@ -147,11 +147,11 @@ void drawFader()
     //draw fader background
     stroke(98,117,8);
     noFill();
-    rect(panelX, panelY - 25, panelWidth,panelHeight + 40);
+    rect(panelX, panelY, panelWidth,panelHeight);
     
     //draw line
     
-    line(sidePadding, panelY, (panelWidth / 2) + panelX, height - bottomPadding);
+    line(sidePadding, panelY + 25, (panelWidth / 2) + panelX, (height - bottomPadding) - 25);
     
     //draw fader
     
