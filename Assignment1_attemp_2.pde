@@ -166,7 +166,9 @@ void drawFader()
     //draw fader 
     
     fill(fader.c);
+    fader.update();
     fader.render();
+    
     
   
    
