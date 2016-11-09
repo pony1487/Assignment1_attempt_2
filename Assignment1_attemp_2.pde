@@ -10,6 +10,8 @@ float padding;
 float centerX;
 float centerY;
 
+
+
 //arrays
 String[] menuArray = new String[5];
 
@@ -141,8 +143,16 @@ void drawFader()
     
     
     //fader variables
-    float faderX;
-    float faderY;
+    float faderX = panelX + 10;
+    float faderY = height - 50;
+    
+    int faderWidth = 125;
+    int faderHeight = 20;
+    color c = color(0,102,102);
+    
+    
+    //create Fader object
+    Fader fader = new Fader(faderX,faderY,faderWidth, faderHeight,c);
     
     //draw fader background
     stroke(98,117,8);
@@ -153,9 +163,13 @@ void drawFader()
     
     line(sidePadding, panelY + 25, (panelWidth / 2) + panelX, (height - bottomPadding) - 25);
     
-    //draw fader
+    //draw fader 
+    
+    fill(fader.c);
+    fader.render();
     
   
+   
   
   
 }//end draw()Throttle
