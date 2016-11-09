@@ -11,13 +11,10 @@ class Fader
    int faderHeight;
    
    boolean over; //is mouse over slider?
+   
    color c;
    
-   Fader()
-   {
-       
-     
-   }
+   
    
    Fader(float faderX,float faderY, int faderWidth, int faderHeight, color c)
    {
@@ -44,14 +41,18 @@ class Fader
       
       if(mousePressed && over)
       {
-          faderY = faderY - 10;
+          faderY = mouseY;
+          
+         // mouseDragged();
+         
       }
-     
+      
+    
   }//end update()
   
    boolean mouseOver()
    {
-      if( mouseX > faderX && mouseX < (faderX + faderWidth) && mouseY > faderY && mouseY < (faderY + faderHeight))
+      if(( mouseX > faderX && mouseX < (faderX + faderWidth)) || (mouseY > faderY && mouseY < (faderY + faderHeight)))
       {
         return true; 
       }
@@ -59,6 +60,8 @@ class Fader
       {
         return false; 
       }
+      
+      
    }//end mouseOver()
    
    void render()
@@ -66,11 +69,20 @@ class Fader
        rect(  faderX, faderY, faderWidth,faderHeight);
        
        println("Y: " + faderY);
-       
-       if(mouseOver())
-       {
-          //println("OVER FADER"); 
-       }
+       println(mouseY); 
+      
    }//end render()
    
+   
+   void mouseDragged() 
+   {
+      faderY = faderY - 1;
+      if (faderY < height / 2) 
+      {
+          faderY = 0;
+      }  
+    }//end mouseDragged()
+    
+    
+    
 }//end class

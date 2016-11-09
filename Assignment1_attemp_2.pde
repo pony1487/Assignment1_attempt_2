@@ -51,7 +51,7 @@ void draw()
   
   
   drawLeftMenu();
-  drawHeader();
+  drawHeader(); 
   drawFader();
   
   
