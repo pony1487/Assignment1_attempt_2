@@ -9,6 +9,7 @@
 float padding;
 float centerX;
 float centerY;
+int rowCount;
 
 //fader and fader variables
 float faderX;
@@ -17,10 +18,15 @@ int faderWidth;
 int faderHeight;
 color faderColor;
 
+//objects
 Fader fader;
+
+//tables
+Table table;
 
 //arrays
 String[] menuArray = new String[5];
+ArrayList<Star> stars = new ArrayList<Star>();
 
 void setup()
 {
@@ -31,6 +37,11 @@ void setup()
   centerX = width / 2;
   centerY = height / 2;
   
+  //read data from file 
+  table = loadTable("Stars.csv", "header");
+  rowCount = table.getRowCount();
+  loadData();
+  
   //set up fader
   //Do these have to be global???
   faderX = 60;
@@ -40,6 +51,7 @@ void setup()
   faderHeight = 20;
   color faderColor = color(0,102,102);
   
+  //init fader
   fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor);  
   
   
@@ -49,13 +61,47 @@ void draw()
 {
   background(0);
   
-  
+  printStars();
+  drawStarGrid();
   drawLeftMenu();
   drawHeader(); 
   drawFader();
   
   
+  
+  
 }//end draw()
+
+void loadData()
+{
+    for(TableRow row : table.rows())
+    {
+        Star s = new Star(row);
+        
+        stars.add(s);
+    }
+  
+}//end loadData()
+
+void printStars()
+{
+     for(int i = 0; i < stars.size();i++)
+    {
+        println(stars.get(i));
+    }
+  
+}//end prinStars()
+
+void drawStarGrid()
+{
+  float displayX = (width / 4) * 2;
+  float displayY = padding * 3;
+  float display_width = 400;
+  float display_height = 400;
+  fill(255);
+  rect(displayX, displayY, display_width, display_height);
+  
+}
 
 void drawBorder()
 {
@@ -69,18 +115,6 @@ void drawBorder()
   
 }//end drawBorder()
 
-void drawDisplay()
-{
-  float displayX = (width / 4) * 2;
-  float displayY = padding * 3;
-  float display_width = 250;
-  float display_height = 250;
-  
-  rect(displayX, displayY, display_width, display_height);
-  
-  
-  
-}//end drawDisplay()
 
 void drawHeader()
 {
@@ -107,7 +141,7 @@ void drawHeader()
   }
   
     //draw bar under menu/header
-    fill(215,255,0);
+    fill(98,117,8);
     //line doesnt change color???
     //line(lineX,20, width, 20);
     rect(lineX - 15,12, width - 120, 4);//hard coded until I figure out why line is not working
@@ -188,6 +222,7 @@ void drawFader()
     fill(fader.c);
     fader.update();
     fader.render();
+    fader.leftMenuLight();
     
     
   
