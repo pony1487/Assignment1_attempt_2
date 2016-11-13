@@ -10,6 +10,10 @@ float padding;
 float centerX;
 float centerY;
 int rowCount;
+float maxStarX;
+float maxStarY;
+
+
 
 //fader and fader variables
 float faderX;
@@ -42,6 +46,8 @@ void setup()
   rowCount = table.getRowCount();
   loadData();
   
+  //get max and min values of stars X and Y
+  starMaxMin();
   //set up fader
   //Do these have to be global???
   faderX = 60;
@@ -63,6 +69,7 @@ void draw()
   
   printStars();
   drawStarGrid();
+  strokeWeight(0);
   drawLeftMenu();
   drawHeader(); 
   drawFader();
@@ -100,18 +107,25 @@ void drawStarGrid()
   
   int gridBorder = 50;
   
-  //float grid_width = 400;
-  //float grid_height = 400;
+  float grid_width = gridX - gridBorder;
+  float grid_height = height / 2;
   
   int rect_size = 25;
+  
+  //draw Border around grid
+  stroke(98,117,8);
+  strokeWeight(3);
+  noFill();
+  rect(gridX - 2, gridY - 2, grid_width + 2, grid_height -20);
+
   
   //print grid 
   for( int i = (int)gridX ; i < width - gridBorder; i = i + rect_size)
   {
       for(int j = (int)gridY; j < height / 2; j = j + rect_size)
       {
-        stroke(216,191,216);
-       strokeWeight(0);
+       stroke(0, 55, 255);
+       strokeWeight(1);
        fill(0);
        rect(i,j, rect_size, rect_size);
        
@@ -120,11 +134,63 @@ void drawStarGrid()
       }
   }  
   
-  
-  
-  
-  
+  for(int i = 0; i < stars.size();i++)
+  {
+    
+    fill(255);
+    
+    float mappedX = map(stars.get(i).x, 0, maxStarX, gridX, width - gridBorder);
+    float mappedY = map(stars.get(i).y, 0, maxStarY, gridY, height / 2);
+    
+    //uncomment to see star positions
+    
+    strokeWeight(5);
+    stroke(255);
+    point(mappedX, mappedY);
+    
+    //draw crosses
+    //line(mappedX - crossWidth, mappedY, mappedX + crossWidth, mappedY);
+    //line(mappedX, mappedY - crossWidth, mappedX, mappedY + crossWidth);
+    
+    //print cirlce
+    //noFill();
+    //ellipse(mappedX, mappedY, stars.get(i).size,stars.get(i).size);
+    //textAlign(CENTER);
+    //text(stars.get(i).name, mappedX + 10, mappedY + 20);
+  }
+
 }//end drawStarGrid
+
+
+
+void starMaxMin()
+{
+  //find max X
+  maxStarX = stars.get(0).x;
+   for(int i = 0; i < stars.size();i++)
+  {
+    if(stars.get(i).x > maxStarX)
+    {
+      maxStarX = stars.get(i).x;
+      
+    }
+    
+  }
+  
+  //find max Y
+
+  maxStarY = stars.get(0).y;
+  for(int i = 0; i < stars.size();i++)
+  {
+    if(stars.get(i).y > maxStarY)
+    {
+      maxStarY = stars.get(i).y;
+      
+    }
+    
+  }
+  
+}//end max
 
 void drawBorder()
 {

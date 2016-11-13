@@ -1,2 +1,9 @@
 name,num_planets,x_pos,y_pos
-Sol,9,500,400,
+Sol,9,50,200
+Agebinium,5,95,150
+Palaven,3,525,235
+Dekunna,2,444,222
+Tuchanka,4,50,50
+Coruscant,8,125,225
+Tatooine,5,430,75
+Hoth,10,225,99
