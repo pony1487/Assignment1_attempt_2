@@ -94,14 +94,37 @@ void printStars()
 
 void drawStarGrid()
 {
-  float displayX = (width / 4) * 2;
-  float displayY = padding * 3;
-  float display_width = 400;
-  float display_height = 400;
-  fill(255);
-  rect(displayX, displayY, display_width, display_height);
   
-}
+  float gridX = width /  2;
+  float gridY = padding * 3;
+  
+  int gridBorder = 50;
+  
+  //float grid_width = 400;
+  //float grid_height = 400;
+  
+  int rect_size = 25;
+  
+  //print grid 
+  for( int i = (int)gridX ; i < width - gridBorder; i = i + rect_size)
+  {
+      for(int j = (int)gridY; j < height / 2; j = j + rect_size)
+      {
+        stroke(216,191,216);
+       strokeWeight(0);
+       fill(0);
+       rect(i,j, rect_size, rect_size);
+       
+       //debug
+       //println("i: " + i + "j: " + j);
+      }
+  }  
+  
+  
+  
+  
+  
+}//end drawStarGrid
 
 void drawBorder()
 {
@@ -125,7 +148,7 @@ void drawHeader()
   
  
   
-  
+  //DO this better!
   menuArray[0] = "Test";
   menuArray[1] = "Test";
   menuArray[2] = "Test";
@@ -205,7 +228,7 @@ void drawFader()
     
     
     //create Fader object
-    //happeing each frame and reseting the faders Y value??
+    //happeing each frame and reseting the faders Y value??---Has to be done in setup()
    // Fader fader = new Fader(faderX,faderY,faderWidth, faderHeight,c);
     
     //draw fader background
