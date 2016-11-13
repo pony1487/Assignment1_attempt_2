@@ -25,6 +25,7 @@ color faderColor;
 //objects
 Fader fader;
 
+
 //tables
 Table table;
 
@@ -67,12 +68,13 @@ void draw()
 {
   background(0);
   
-  printStars();
+  //printStars();
   drawStarGrid();
   strokeWeight(0);
   drawLeftMenu();
   drawHeader(); 
   drawFader();
+  clickStar();
   
   
   
@@ -95,8 +97,9 @@ void printStars()
      for(int i = 0; i < stars.size();i++)
     {
         println(stars.get(i));
+        
     }
-  
+    
 }//end prinStars()
 
 void drawStarGrid()
@@ -134,6 +137,10 @@ void drawStarGrid()
       }
   }  
   
+  
+  //draw the stars
+  int crossWidth = 4;
+  
   for(int i = 0; i < stars.size();i++)
   {
     
@@ -143,23 +150,33 @@ void drawStarGrid()
     float mappedY = map(stars.get(i).y, 0, maxStarY, gridY, height / 2);
     
     //uncomment to see star positions
-    
-    strokeWeight(5);
-    stroke(255);
-    point(mappedX, mappedY);
+    //strokeWeight(5);
+    //stroke(255);
+    //point(mappedX, mappedY);
     
     //draw crosses
-    //line(mappedX - crossWidth, mappedY, mappedX + crossWidth, mappedY);
-    //line(mappedX, mappedY - crossWidth, mappedX, mappedY + crossWidth);
+    stroke(255);
+    line(mappedX - crossWidth, mappedY, mappedX + crossWidth, mappedY);
+    line(mappedX, mappedY - crossWidth, mappedX, mappedY + crossWidth);
     
     //print cirlce
-    //noFill();
-    //ellipse(mappedX, mappedY, stars.get(i).size,stars.get(i).size);
-    //textAlign(CENTER);
-    //text(stars.get(i).name, mappedX + 10, mappedY + 20);
+    noFill();
+    ellipse(mappedX, mappedY, stars.get(i).size,stars.get(i).size);
+    textAlign(CENTER);
+    text(stars.get(i).name, mappedX + 10, mappedY + 20);
   }
 
 }//end drawStarGrid
+
+void clickStar()
+{
+    for(int i = 0; i < stars.size();i++)
+    {
+       stars.get(i).update();
+    }
+  
+  
+}//end clickStar()
 
 
 
