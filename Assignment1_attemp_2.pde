@@ -74,7 +74,7 @@ void draw()
   drawLeftMenu();
   drawHeader(); 
   drawFader();
-  clickStar();
+  
   
   
   
@@ -164,19 +164,15 @@ void drawStarGrid()
     ellipse(mappedX, mappedY, stars.get(i).size,stars.get(i).size);
     textAlign(CENTER);
     text(stars.get(i).name, mappedX + 10, mappedY + 20);
+    
+    
+    //check for click on star
+    stars.get(i).checkForClick(mappedX,mappedY);
   }
 
 }//end drawStarGrid
 
-void clickStar()
-{
-    for(int i = 0; i < stars.size();i++)
-    {
-       stars.get(i).update();
-    }
-  
-  
-}//end clickStar()
+
 
 
 

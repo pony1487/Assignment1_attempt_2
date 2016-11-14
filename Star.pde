@@ -19,9 +19,9 @@ class Star
   
   
   //NEED TO MAP X AND Y!!!! 
-  void update() 
+  void checkForClick(float x, float y) 
   {
-    if (mouseOver()) 
+    if (mouseOver(x, y)) 
     {
       overStar = true;
     } else 
@@ -35,9 +35,9 @@ class Star
     }//end if
   }//end update()
 
-  boolean mouseOver()
+  boolean mouseOver(float x, float y)
   {
-    if (( mouseX > x && mouseX < (x + 25)) || (mouseY > y && mouseY < (y + 25)))
+    if (( mouseX >= x && mouseX <= (x + 10)) || (mouseY >= y && mouseY <= (y + 10)))
     {
       return true;
     } else
