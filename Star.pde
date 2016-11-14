@@ -5,8 +5,13 @@ class Star
   float x, y;
   float size;
   
+  ArrayList<Planet> planets;
+  
   boolean overStar;
   
+  Star()
+  {
+  }
   
   Star(TableRow row)
   {
@@ -15,6 +20,22 @@ class Star
         x = row.getFloat("x_pos");
         y = row.getFloat("y_pos");
         size = row.getFloat("size");
+        
+        planets = new ArrayList<Planet>();
+        
+        //init planets
+        for(int i = 0; i < num_planets;i++)
+        {
+           Planet p = new Planet();
+           
+           planets.add(p);
+           
+           //need to find a way to name each star
+           planets.get(i).name = "TEST";
+           planets.get(i).size = (int)random(0,50);
+           planets.get(i).c = color((int)random(0,255),(int)random(0,255),(int)random(0,255));
+        }
+        
   }//end constructor
   
   
@@ -32,6 +53,7 @@ class Star
     if (mousePressed && overStar)
     {
         println("Mouse over Star: " + name);
+        //display planets
     }//end if
   }//end update()
 
@@ -45,6 +67,15 @@ class Star
       return false;
     }
   }//end mouseOver()
+  
+  void printPlanets()
+  {
+      for(int i = 0; i < num_planets; i++)
+      {
+         println("Planet: "  + planets.get(i).name + " Size: " + planets.get(i).size + " Color: " + planets.get(i).c);
+      }
+    
+  }//end printPlanets
   
 
   

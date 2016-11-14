@@ -12,6 +12,7 @@ float centerY;
 int rowCount;
 float maxStarX;
 float maxStarY;
+int mode;//used to switch between screens
 
 
 
@@ -68,12 +69,22 @@ void draw()
 {
   background(0);
   
-  //printStars();
-  drawStarGrid();
-  strokeWeight(0);
-  drawLeftMenu();
-  drawHeader(); 
-  drawFader();
+  //menu
+  switch(mode)
+  {
+    case 0:
+      text("This is the menu", width/2, height/2);
+      break;
+    case 1:
+    
+      printStars();
+      drawStarGrid();
+      strokeWeight(0);
+      drawLeftMenu();
+      drawHeader(); 
+      drawFader();
+      break;
+  }
   
   
   
@@ -94,11 +105,10 @@ void loadData()
 
 void printStars()
 {
-     for(int i = 0; i < stars.size();i++)
-    {
-        println(stars.get(i));
-        
-    }
+  for(int i = 0; i < stars.size();i++)
+  {
+     stars.get(0).printPlanets();
+  }
     
 }//end prinStars()
 
@@ -332,3 +342,12 @@ void drawFader()
   
   
 }//end draw()Throttle
+
+void keyPressed()
+{
+  if (key >= '0' && key <='9')
+  {
+    mode = key - '0';
+  }
+  println(mode);
+}
