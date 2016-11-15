@@ -28,9 +28,9 @@ class Star
         for(int i = 0; i < num_planets;i++)
         {
            //planet attributes 
-           float radius = random(50,300);
+           float radius = random(50,500);
            float size = random(5,30);
-           float speed = random(0.01,0.005);
+           float speed = random(0.01,0.02);
            color c = color((int)random(0,255),(int)random(0,255),(int)random(0,255));
            //create new planet
            Planet p = new Planet(radius,size,speed);

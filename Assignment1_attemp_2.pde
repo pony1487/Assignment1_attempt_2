@@ -414,7 +414,7 @@ void drawTransition()
 
 void drawPlanets()
 { 
-  int star = 3;//this is just for testing, this will be replaced
+  int star = 1;//this is just for testing, this will be replaced
   
 
    //Draw stars in background
