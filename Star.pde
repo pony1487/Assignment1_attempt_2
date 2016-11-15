@@ -50,10 +50,12 @@ class Star
       overStar = false;
     }
 
+    //CONTIUNE HERE 14/11/2016
     if (mousePressed && overStar)
     {
         println("Mouse over Star: " + name);
         //display planets
+        mode = 2;
     }//end if
   }//end update()
 

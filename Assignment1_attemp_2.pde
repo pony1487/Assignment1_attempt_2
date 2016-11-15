@@ -84,6 +84,9 @@ void draw()
       drawHeader(); 
       drawFader();
       break;
+    case 2:
+      text("This is the planet screen", width/2, height/2);
+      break;
   }
   
   
