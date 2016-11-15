@@ -27,14 +27,23 @@ class Star
         //init planets
         for(int i = 0; i < num_planets;i++)
         {
-           Planet p = new Planet();
+           //planet attributes 
+           float radius = random(50,300);
+           float size = random(5,30);
+           float speed = random(0.1,0.005);
+           color c = color((int)random(0,255),(int)random(0,255),(int)random(0,255));
+           //create new planet
+           Planet p = new Planet(radius,size,speed);
            
            planets.add(p);
            
-           //need to find a way to name each star
-           planets.get(i).name = "TEST";
-           planets.get(i).size = (int)random(0,50);
+           //Could do this way and have a default Planet() constructor that does nothing then intialise each star here
+           /*
+           planets.get(i).size = random(5,30);
+           planets.get(i).radius = random(50,300);
+           planets.get(i).speed = random(0.1,0.005);
            planets.get(i).c = color((int)random(0,255),(int)random(0,255),(int)random(0,255));
+           */
         }
         
   }//end constructor
@@ -55,9 +64,10 @@ class Star
     //CONTIUNE HERE 14/11/2016
     if (mousePressed && overStar)
     {
-        println("Mouse over Star: " + name);
+        //println("Mouse over Star: " + name);
+        text(name, mappedX + 10, mappedY + 10);
         //display planets
-        mode = 2;
+        //mode = 2;
     }//end if
    
     
@@ -67,7 +77,7 @@ class Star
   {
       for(int i = 0; i < num_planets; i++)
       {
-         println("Planet: "  + planets.get(i).name + " Size: " + planets.get(i).size + " Color: " + planets.get(i).c);
+         println("Planet Radius: "  + planets.get(i).radius + " Size: " + planets.get(i).size + " Speed: " + planets.get(i).speed);
       }
     
   }//end printPlanets

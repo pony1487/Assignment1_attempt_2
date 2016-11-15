@@ -14,6 +14,8 @@ float maxStarX;
 float maxStarY;
 int mode;//used to switch between screens
 
+color c;
+
 
 
 //fader and fader variables
@@ -33,6 +35,7 @@ Table table;
 //arrays
 String[] menuArray = new String[5];
 ArrayList<Star> stars = new ArrayList<Star>();
+ArrayList<Transition> trans = new ArrayList<Transition>();
 
 void setup()
 {
@@ -42,11 +45,15 @@ void setup()
   padding = 10;
   centerX = width / 2;
   centerY = height / 2;
+  c = color(216, 209, 0);
   
   //read data from file 
   table = loadTable("Stars.csv", "header");
   rowCount = table.getRowCount();
   loadData();
+  
+  //fill Transition array with random points
+  initTransition();
   
   //get max and min values of stars X and Y
   starMaxMin();
@@ -85,10 +92,20 @@ void draw()
       drawLeftMenu();
       drawHeader(); 
       drawFader();
+      drawCircleDisplay();
       break;
     case 2:
-      text("This is the planet screen", width/2, height/2);
+      //Fix this so it wil reset each time it is called!!!
+      background(0);
+      drawTransition();
+      
+      
       break;
+    case 3:
+      drawPlanets();
+      break;
+      
+    
   }
   
   
@@ -132,7 +149,7 @@ void drawStarGrid()
   int rect_size = 25;
   
   //draw Border around grid
-  stroke(98,117,8);
+  stroke(c);
   strokeWeight(3);
   noFill();
   rect(gridX - 2, gridY - 2, grid_width + 2, grid_height -20);
@@ -179,7 +196,7 @@ void drawStarGrid()
     noFill();
     ellipse(mappedX, mappedY, stars.get(i).size,stars.get(i).size);
     textAlign(CENTER);
-    text(stars.get(i).name, mappedX + 10, mappedY + 20);
+    //text(stars.get(i).name, mappedX + 10, mappedY + 20);
     
     
     //println("Mapped X in main: " + mappedX);
@@ -347,6 +364,61 @@ void drawFader()
   
   
 }//end drawFader()
+
+void drawCircleDisplay()
+{
+    
+    float x = 50;
+    float y = padding * 3;
+    float displayPadding = 100;
+    
+    float rectWidth = width / 2 - displayPadding;
+    float rectHeight = height / 2 - (padding * 4);
+    
+    stroke(249, 242, 34);
+    noFill();
+    strokeWeight(2);
+    rect(x,y,rectWidth,rectHeight);
+  
+    text("TO DO", x + 100, y + 100);
+  
+}//end drawCircleDisplay
+
+void initTransition()
+{
+  //fill array with random "stars"
+  //I kept this sepearte from the star class
+  for(int i = 0; i < 500; i++)
+  {
+      float x = random(0, width);
+      float y = random(0, height);
+      
+      Transition t = new Transition(x,y);
+      
+      trans.add(t);
+  }
+  
+}
+
+void drawTransition()
+{
+  background(0);
+    
+  for(int i = 0; i < trans.size();i++)
+  {
+      
+      trans.get(i).render();
+     
+  }
+}//end drawTransistion()
+
+void drawPlanets()
+{
+  stars.get(0).planets.get(0).render();
+  stars.get(0).planets.get(1).render();
+  stars.get(0).planets.get(2).render();
+  stars.get(0).planets.get(3).render();
+}//end drawPlanets()
 
 
 
