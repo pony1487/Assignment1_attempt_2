@@ -6,6 +6,9 @@ class Transition
    float x2;//increase these so it "looks" like warp drive
    float y2;
    
+   float x3;//used to presever the original values of the coords so they dont move while drawing the stars behind the planets
+   float y3;
+   
    float size;
    float speed;
    
@@ -15,6 +18,9 @@ class Transition
      this.y = y;
      this.x2 = x;
      this.y2 = y;
+     
+     x3 = x;
+     y3 = y;
      size = random(0,5);
      speed = 0;
    }
@@ -45,7 +51,7 @@ class Transition
    {
        stroke(255);
        strokeWeight(size); 
-       point(x,y);
+       point(x3,y3);
      
    }
    
