@@ -60,7 +60,9 @@ void setup()
   color faderColor = color(0,102,102);
   
   //init fader
-  fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor);  
+  fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor); 
+  
+   
   
   
 }//end setup()
@@ -77,7 +79,7 @@ void draw()
       break;
     case 1:
     
-      printStars();
+      //printStars();
       drawStarGrid();
       strokeWeight(0);
       drawLeftMenu();
@@ -110,7 +112,8 @@ void printStars()
 {
   for(int i = 0; i < stars.size();i++)
   {
-     stars.get(0).printPlanets();
+     //stars.get(0).printPlanets();
+     println(stars.get(i));
   }
     
 }//end prinStars()
@@ -179,8 +182,15 @@ void drawStarGrid()
     text(stars.get(i).name, mappedX + 10, mappedY + 20);
     
     
+    //println("Mapped X in main: " + mappedX);
+    //println("Mapped Y in main: " + mappedY);
+    
+    //give each star its mapped values
+    stars.get(i).mappedX = mappedX;
+    stars.get(i).mappedY = mappedY;
+    
     //check for click on star
-    stars.get(i).checkForClick(mappedX,mappedY);
+    stars.get(i).checkForClick();
   }
 
 }//end drawStarGrid
@@ -216,19 +226,11 @@ void starMaxMin()
     
   }
   
+  println("Max X from file: " + maxStarX);
+  println("Max Y from file: " + maxStarY);
 }//end max
 
-void drawBorder()
-{
-  //fill(164, 171, 181);
-  //outer rect
-  rect(padding, padding, width - (padding * 2),height - (padding * 2) );
-  
-  //fill(92, 93, 94);
-  //inner rect
-  rect(padding * 2, padding * 2, width - (padding * 4),height - (padding * 4) );
-  
-}//end drawBorder()
+
 
 
 void drawHeader()
@@ -344,7 +346,9 @@ void drawFader()
    
   
   
-}//end draw()Throttle
+}//end drawFader()
+
+
 
 void keyPressed()
 {

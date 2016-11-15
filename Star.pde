@@ -3,6 +3,7 @@ class Star
   String name;
   int num_planets;
   float x, y;
+  float mappedX, mappedY;
   float size;
   
   ArrayList<Planet> planets;
@@ -40,9 +41,10 @@ class Star
   
   
   //NEED TO MAP X AND Y!!!! 
-  void checkForClick(float x, float y) 
+  void checkForClick() 
   {
-    if (mouseOver(x, y)) 
+  
+    if(  ((mouseX <= mappedX + 10) && (mouseX >= mappedX - 10)) && ((mouseY <= mappedY + 10) && (mouseY >= mappedY - 10)) )
     {
       overStar = true;
     } else 
@@ -55,20 +57,13 @@ class Star
     {
         println("Mouse over Star: " + name);
         //display planets
-        mode = 2;
+        //mode = 2;
     }//end if
-  }//end update()
-
-  boolean mouseOver(float x, float y)
-  {
-    if (( mouseX >= x && mouseX <= (x + 10)) || (mouseY >= y && mouseY <= (y + 10)))
+    else
     {
-      return true;
-    } else
-    {
-      return false;
+        println("Not over star");
     }
-  }//end mouseOver()
+  }//end update()
   
   void printPlanets()
   {
@@ -84,7 +79,7 @@ class Star
   public String toString()
   {
      
-      return name + " " + num_planets + " " + x + " " + y;
+      return name + "\t" + num_planets + "\t" + x + "\t" + y + "\tMappedX: " + mappedX + "\tMappedY: " + mappedY;
   }
   
 }
