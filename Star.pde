@@ -57,12 +57,10 @@ class Star
     {
         println("Mouse over Star: " + name);
         //display planets
-        //mode = 2;
+        mode = 2;
     }//end if
-    else
-    {
-        println("Not over star");
-    }
+   
+    
   }//end update()
   
   void printPlanets()
