@@ -30,7 +30,7 @@ class Star
            //planet attributes 
            float radius = random(50,300);
            float size = random(5,30);
-           float speed = random(0.1,0.005);
+           float speed = random(0.01,0.005);
            color c = color((int)random(0,255),(int)random(0,255),(int)random(0,255));
            //create new planet
            Planet p = new Planet(radius,size,speed);
@@ -83,6 +83,10 @@ class Star
   }//end printPlanets
   
 
+  int getNumPlanets()
+  {
+     return num_planets; 
+  }
   
   public String toString()
   {

@@ -414,10 +414,18 @@ void drawTransition()
 
 void drawPlanets()
 {
-  stars.get(0).planets.get(0).render();
-  stars.get(0).planets.get(1).render();
-  stars.get(0).planets.get(2).render();
-  stars.get(0).planets.get(3).render();
+  int star = 5;//this is just for testing
+  Sun s = new Sun(50);//change this somehow so sun can be bigger or smaller
+  s.render();
+  
+  int max = stars.get(star).getNumPlanets();
+  
+  
+  for(int i = 0; i < max;i++)
+  {
+      stars.get(star).planets.get(i).render();
+      
+  }
 }//end drawPlanets()
 
 
