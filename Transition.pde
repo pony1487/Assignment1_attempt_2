@@ -40,6 +40,15 @@ class Transition
        }
    }//end render()
    
+   //NOT USED
+   void renderPoints()
+   {
+       stroke(255);
+       strokeWeight(size); 
+       point(x,y);
+     
+   }
+   
    void resetTransition()
    {
      

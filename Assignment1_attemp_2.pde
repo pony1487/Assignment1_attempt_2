@@ -413,19 +413,39 @@ void drawTransition()
 }//end drawTransistion()
 
 void drawPlanets()
-{
-  int star = 5;//this is just for testing
+{ 
+  int star = 3;//this is just for testing, this will be replaced
+  
+  //THIS DOESNT WORK!!!!!!
+  //copy the trans list into this and render this one. If you dont do this, the tranistion screen will affect the background stars if you switch back adn forth between them
+  ArrayList<Transition> t = new ArrayList<Transition>();
+  
+  
+   for (int i = 0 ; i<trans.size();i++)
+   {
+    t.add(trans.get(i)) ;
+   }
+  //draw stars on background
+  for(int i = 0; i < t.size(); i++)
+  {
+    t.get(i).renderPoints();
+  }
+  
+  
+  
+  //this stops the Transistion screen from affecting the planets borders
+  noStroke();
   Sun s = new Sun(50);//change this somehow so sun can be bigger or smaller
   s.render();
   
   int max = stars.get(star).getNumPlanets();
-  
   
   for(int i = 0; i < max;i++)
   {
       stars.get(star).planets.get(i).render();
       
   }
+   
 }//end drawPlanets()
 
 
