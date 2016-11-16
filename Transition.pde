@@ -46,7 +46,7 @@ class Transition
        }
    }//end render()
    
-   //NOT USED
+   
    void renderPoints()
    {
        stroke(255);

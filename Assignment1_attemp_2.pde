@@ -95,8 +95,11 @@ void draw()
     case 0:
       resetTransition();
       //slow to load and to change to this...
+      
       drawSunAtBottom();
       drawMenu();
+      drawStarsInBackground();
+      
       
       break;
     case 1:
@@ -447,10 +450,7 @@ void drawPlanets()
   
 
    //Draw stars in background
-   for (int i = 0 ; i<trans.size();i++)
-   {
-    trans.get(i).renderPoints() ;
-   }
+   drawStarsInBackground();
   
   
   //this stops the Transistion screen from affecting the planets borders
@@ -467,6 +467,15 @@ void drawPlanets()
   }
    
 }//end drawPlanets()
+
+void drawStarsInBackground()
+{
+   for (int i = 0 ; i<trans.size();i++)
+   {
+    trans.get(i).renderPoints() ;
+   } 
+  
+}
 
 void initButtons()
 {
