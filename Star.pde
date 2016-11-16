@@ -56,6 +56,7 @@ class Star
     if(  ((mouseX <= mappedX + 10) && (mouseX >= mappedX - 10)) && ((mouseY <= mappedY + 10) && (mouseY >= mappedY - 10)) )
     {
       overStar = true;
+      text(name, mappedX + 15, mappedY - 25);
     } else 
     {
       overStar = false;
@@ -65,7 +66,7 @@ class Star
     if (mousePressed && overStar)
     {
         //println("Mouse over Star: " + name);
-        text(name, mappedX + 10, mappedY + 10);
+       
         //display planets
         //mode = 2;
     }//end if

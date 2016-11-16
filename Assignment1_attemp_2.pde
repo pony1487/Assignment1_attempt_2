@@ -116,7 +116,7 @@ void draw()
       drawLeftMenu();
       drawHeader(); 
       drawFader();
-      drawCircleDisplay();
+      drawTrenchDisplay();
       break;
     case 3:
       //Fix this so it wil reset each time it is called!!!
@@ -281,30 +281,12 @@ void drawHeader()
   //background(0);
   float menuX = 100;
   float lineX = menuX;
-  float space = (width - padding) / menuArray.length;
-  
- 
-  
-  //DO this better!
-  menuArray[0] = "Test";
-  menuArray[1] = "Test";
-  menuArray[2] = "Test";
-  menuArray[3] = "Test";
-  menuArray[4] = "Test";
-  
-  for(int i = 0; i < menuArray.length;i++)
-  {
-    fill(255);
-    text(menuArray[i], menuX, padding);
-    textAlign(CENTER);
-    menuX = menuX + space; 
-  }
-  
+    
     //draw bar under menu/header
-    fill(98,117,8);
-    //line doesnt change color???
-    //line(lineX,20, width, 20);
-    rect(lineX - 15,12, width - 120, 4);//hard coded until I figure out why line is not working
+    stroke(98,117,8);
+    strokeWeight(3);
+    line(lineX,20, width -120, 20);
+    //rect(lineX - 15,12, width - 120, 4);//hard coded until I figure out why line is not working
     
 }//end drawHeader()
 
@@ -391,7 +373,7 @@ void drawFader()
   
 }//end drawFader()
 
-void drawCircleDisplay()
+void drawTrenchDisplay()
 {
     
     float x = 50;
@@ -406,7 +388,7 @@ void drawCircleDisplay()
     strokeWeight(2);
     rect(x,y,rectWidth,rectHeight);
   
-    text("TO DO", x + 100, y + 100);
+    text("Star wars trench??", x + 100, y + 100);
   
 }//end drawCircleDisplay
 
@@ -559,6 +541,7 @@ void drawReadMe()
   String s3 = "Star Transition: 3";
   String s4 = "Planets: 4";
   String s5 = "Exit: 5";
+  String s6 = "Click and HOLD on Menu buttons, they lag";
   background(0);//might not need this
   
   textAlign(CENTER, CENTER);
@@ -570,6 +553,7 @@ void drawReadMe()
   text(s3,textX,textY + 125);
   text(s4,textX,textY + 150);
   text(s5,textX,textY + 175);
+  text(s6,textX,textY + 200);
   
   textY--;
   

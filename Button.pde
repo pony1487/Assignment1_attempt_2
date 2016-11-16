@@ -4,6 +4,8 @@ class Button
   int b_width, b_height;
   String s;
   PFont font;
+  color c1,c2;
+  boolean overButton;
   
   Button(float x, float y, int b_width, int b_height, String s)
   {
@@ -13,11 +15,18 @@ class Button
     this.b_height = b_height;
     this.s = s;
     font = createFont("Death Star.otf",32);
+    c1 = color(247, 197, 0);
+    c2 = color(247, 250, 0);
   }
   
   void render()
   {
-     stroke(247, 197, 0);
+     if(overButton)
+     {
+       stroke(c2);
+     }
+     
+     
      noFill();
      rect(x,y,b_width,b_height);
     
@@ -39,6 +48,8 @@ class Button
       //(mouseX <= mappedX + 10) && (mouseX >= mappedX - 10)) && ((mouseY <= mappedY + 10) && (mouseY >= mappedY - 10))
       if( (mouseX > x) && (mouseX < x  + b_width) && (mouseY > y) && (mouseY < y + b_height) )
       {
+          overButton = true;
+          
           if(mousePressed)
           {
             if(s == "README")
@@ -55,11 +66,20 @@ class Button
             {
                 mode = 5;
             }
-          }
+          }//end if
+         
+          
       }
+      else
+      {
+         overButton = false; 
+      }
+      
+     
      
     
-  }
+  }//end isClicked()
+ 
   
   
 }
