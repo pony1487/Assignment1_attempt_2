@@ -27,6 +27,14 @@ color faderColor;
 
 //objects
 Fader fader;
+Button b;
+Button b2;
+Button b3;
+
+//button variables
+float buttonX, buttonY;
+int buttonWidth, buttonHeight;
+float buttonSpacing;
 
 
 //tables
@@ -69,6 +77,9 @@ void setup()
   //init fader
   fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor); 
   
+  //init buttons
+  initButtons();
+  
    
   
   
@@ -82,11 +93,14 @@ void draw()
   switch(mode)
   {
     case 0:
-    resetTransition();
-      text("This is the menu", width/2, height/2);
+      resetTransition();
+      //slow to load and to change to this...
+      drawSunAtBottom();
+      drawMenu();
       
       break;
     case 1:
+      textSize(11);
       resetTransition();
       //printStars();
       drawStarGrid();
@@ -453,6 +467,68 @@ void drawPlanets()
   }
    
 }//end drawPlanets()
+
+void initButtons()
+{
+    buttonWidth = 200;
+    buttonHeight  = 75;
+    buttonSpacing = 100;
+    
+    String starMap = "MAP";
+    String readme = "README";
+    String exit = "EXIT";
+  
+    buttonX = width / 2 - (buttonWidth / 2);
+    buttonY = height / 4; 
+    
+    //create buttons
+    b = new Button(buttonX, buttonY, buttonWidth, buttonHeight, starMap);
+    b2 = new Button(buttonX, buttonY + buttonSpacing, buttonWidth, buttonHeight, readme);
+    b3 = new Button(buttonX, buttonY + (buttonSpacing * 2), buttonWidth, buttonHeight, exit);
+  
+}//end initButtons()
+
+void drawMenu()
+{
+  //drawSunAtBottom();
+  
+  b.render();
+  b.drawText();
+
+  b2.render();
+  b2.drawText();
+  
+  b3.render();
+  b3.drawText();
+  
+  
+}//end drawMenu()
+
+void drawSunAtBottom()
+{
+  
+  //arc(x, y, width, height, start, stop);
+  float x = width / 2;
+  float y = height + 140;
+  float w = width;
+  float h = height;
+  float start = -PI;
+  float stop = 0;
+  
+  
+  //draw the sun at bottom
+  fill(247, 32, 0);
+  noStroke();
+  
+  arc(x,y,w,h,start,stop);
+  
+  
+  //draw another arc above the sun and blur it
+  fill(247, 90, 0);
+  filter( BLUR, 6 );
+  arc(x,y,w,h - 20,start,stop);
+  
+}//end drawSunAtBottom();
 
 
 
