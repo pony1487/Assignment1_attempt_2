@@ -96,9 +96,12 @@ void draw()
       resetTransition();
       //slow to load and to change to this...
       
+      
       drawSunAtBottom();
       drawMenu();
       drawStarsInBackground();
+      
+      
       
       
       break;
@@ -470,6 +473,7 @@ void drawPlanets()
 
 void drawStarsInBackground()
 {
+   
    for (int i = 0 ; i<trans.size();i++)
    {
     trans.get(i).renderPoints() ;
