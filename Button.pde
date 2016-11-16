@@ -34,5 +34,32 @@ class Button
     
   }
   
+  void isClicked()
+  {
+      //(mouseX <= mappedX + 10) && (mouseX >= mappedX - 10)) && ((mouseY <= mappedY + 10) && (mouseY >= mappedY - 10))
+      if( (mouseX > x) && (mouseX < x  + b_width) && (mouseY > y) && (mouseY < y + b_height) )
+      {
+          if(mousePressed)
+          {
+            if(s == "README")
+            {
+                mode = 1;
+            }
+            
+            if(s == "MAP")
+            {
+                mode = 2;
+            }
+            
+            if(s == "EXIT")
+            {
+                mode = 5;
+            }
+          }
+      }
+     
+    
+  }
+  
   
 }

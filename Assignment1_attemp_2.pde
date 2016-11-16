@@ -2,6 +2,8 @@
   C15737505 
   Object Oriented Programming Assignment 1
   Ronan Connolly
+  
+  NOTE: Menu is buttons are slow to react to clicks
 
 */
 
@@ -13,6 +15,9 @@ int rowCount;
 float maxStarX;
 float maxStarY;
 int mode;//used to switch between screens
+
+float textX = 500;//used for scrolling readme
+float textY = 500;
 
 color c;
 
@@ -95,17 +100,14 @@ void draw()
     case 0:
       resetTransition();
       //slow to load and to change to this...
-      
-      
       drawSunAtBottom();
       drawMenu();
       drawStarsInBackground();
-      
-      
-      
-      
       break;
-    case 1:
+     case 1:
+       drawReadMe();
+       break;
+    case 2:
       textSize(11);
       resetTransition();
       //printStars();
@@ -115,19 +117,18 @@ void draw()
       drawHeader(); 
       drawFader();
       drawCircleDisplay();
-      
       break;
-    case 2:
+    case 3:
       //Fix this so it wil reset each time it is called!!!
       background(0);
       drawTransition();
-      
-      
       break;
-    case 3:
+    case 4:
       resetTransition();
       drawPlanets();
-      
+      break;
+    case 5:
+      exit(); 
       break;
       
     
@@ -268,8 +269,8 @@ void starMaxMin()
     
   }
   
-  println("Max X from file: " + maxStarX);
-  println("Max Y from file: " + maxStarY);
+  //println("Max X from file: " + maxStarX);
+  //println("Max Y from file: " + maxStarY);
 }//end max
 
 
@@ -507,12 +508,17 @@ void drawMenu()
   
   b.render();
   b.drawText();
+  b.isClicked();
 
   b2.render();
   b2.drawText();
+  b2.isClicked();
   
   b3.render();
   b3.drawText();
+  b3.isClicked();
+  
+  
   
   
 }//end drawMenu()
@@ -542,6 +548,18 @@ void drawSunAtBottom()
   arc(x,y,w,h - 20,start,stop);
   
 }//end drawSunAtBottom();
+
+void drawReadMe()
+{
+  String s = "Ronan Connolly C15737505 Assignment";
+  background(0);//might not need this
+  
+  drawStarsInBackground();
+  text(s,textX,textY);
+  
+  textY--;
+  
+}//end drawReadme()
 
 
 
