@@ -55,8 +55,10 @@ class Transition
      
    }
    
+   //stops stars from continueing after the transistion screen
    void resetTransition()
    {
-     
+      x = x3;
+      y = y3;
    }
 }

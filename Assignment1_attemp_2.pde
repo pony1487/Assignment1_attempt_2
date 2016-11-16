@@ -82,10 +82,12 @@ void draw()
   switch(mode)
   {
     case 0:
+    resetTransition();
       text("This is the menu", width/2, height/2);
+      
       break;
     case 1:
-    
+      resetTransition();
       //printStars();
       drawStarGrid();
       strokeWeight(0);
@@ -93,6 +95,7 @@ void draw()
       drawHeader(); 
       drawFader();
       drawCircleDisplay();
+      
       break;
     case 2:
       //Fix this so it wil reset each time it is called!!!
@@ -102,7 +105,9 @@ void draw()
       
       break;
     case 3:
+      resetTransition();
       drawPlanets();
+      
       break;
       
     
@@ -398,7 +403,8 @@ void initTransition()
       trans.add(t);
   }
   
-}
+}//end initTransition(0
+
 
 void drawTransition()
 {
@@ -406,11 +412,20 @@ void drawTransition()
     
   for(int i = 0; i < trans.size();i++)
   {
-      
       trans.get(i).render();
-     
   }
 }//end drawTransistion()
+
+
+void resetTransition()
+{
+  background(0);
+    
+  for(int i = 0; i < trans.size();i++)
+  {
+      trans.get(i).resetTransition();
+  }
+}//end resetTransistion()
 
 void drawPlanets()
 { 
