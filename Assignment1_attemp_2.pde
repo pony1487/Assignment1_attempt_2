@@ -17,7 +17,7 @@ float maxStarY;
 int mode;//used to switch between screens
 
 float textX = 500;//used for scrolling readme
-float textY = 500;
+float textY = 600;
 
 color c;
 
@@ -551,13 +551,32 @@ void drawSunAtBottom()
 
 void drawReadMe()
 {
+  
   String s = "Ronan Connolly C15737505 Assignment";
+  String s0 = "Menu: 0";
+  String s1 = "Readme: 1";
+  String s2 = "Map: 2";
+  String s3 = "Star Transition: 3";
+  String s4 = "Planets: 4";
+  String s5 = "Exit: 5";
   background(0);//might not need this
   
+  textAlign(CENTER, CENTER);
   drawStarsInBackground();
   text(s,textX,textY);
+  text(s0,textX,textY + 50);
+  text(s1,textX,textY + 75);
+  text(s2,textX,textY + 100);
+  text(s3,textX,textY + 125);
+  text(s4,textX,textY + 150);
+  text(s5,textX,textY + 175);
   
   textY--;
+  
+  if(textY == -175)
+  {
+     textY = 600;
+  }
   
 }//end drawReadme()
 
