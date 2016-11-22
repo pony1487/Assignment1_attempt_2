@@ -63,6 +63,7 @@ void setup()
 {
   size(1000,600);
   frameRate(50);
+  mode = 0;
   
   //init variables
   padding = 10;
@@ -141,6 +142,7 @@ void draw()
     case 4:
     
       resetTransition();
+       transTime = 85;//reset time
       drawStarsPlanets();
       break;
     case 5:
@@ -545,6 +547,13 @@ void drawStarsPlanets()
       stars.get(starIndex).drawPlanets();
       
   }
+  
+  if(mousePressed)
+  {
+    
+      mode = 2;
+     
+  }
    
 }//end drawPlanets()
 
@@ -657,6 +666,13 @@ void drawReadMe()
   if(textY == -175)
   {
      textY = 600;
+  }
+  
+    if(mousePressed)
+  {
+    
+      mode = 0;
+     
   }
   
 }//end drawReadme()
