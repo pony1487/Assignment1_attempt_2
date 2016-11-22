@@ -16,16 +16,17 @@ class Button
     this.s = s;
     font = createFont("Death Star.otf",32);
     c1 = color(247, 197, 0);
-    c2 = color(247, 250, 0);
+    c2 = color(255, 0, 0);
   }
   
   void render()
   {
+      stroke(c1);
      if(overButton)
      {
        stroke(c2);
      }
-     
+    
      
      noFill();
      rect(x,y,b_width,b_height);

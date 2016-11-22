@@ -19,9 +19,19 @@ int mode;//used to switch between screens
 float textX = 500;//used for scrolling readme
 float textY = 600;
 
+//use for trench function
+float lineX;
+float lineY;
+
+float lineX1;
+float lineY1;
+
+float scalarX;
+float scalarY;
+
+
+
 color c;
-
-
 
 //fader and fader variables
 float faderX;
@@ -53,6 +63,7 @@ ArrayList<Transition> trans = new ArrayList<Transition>();
 void setup()
 {
   size(1000,600);
+  frameRate(50);
   
   //init variables
   padding = 10;
@@ -84,6 +95,15 @@ void setup()
   
   //init buttons
   initButtons();
+  
+  //init variables for trench
+  lineX =width/2;
+  lineY =height/2;
+  lineX1 =width/2;
+  lineY1 =height/2 + 10;
+  
+  scalarX = 0;
+  scalarY = 0;
   
    
   
@@ -388,7 +408,7 @@ void drawTrenchDisplay()
     strokeWeight(2);
     rect(x,y,rectWidth,rectHeight);
   
-    text("Star wars trench??", x + 100, y + 100);
+    //text("Star wars trench??", x + 100, y + 100);
   
 }//end drawCircleDisplay
 
@@ -499,7 +519,8 @@ void drawMenu()
   b3.render();
   b3.drawText();
   b3.isClicked();
-  
+  textSize(10);
+  text("Menu is laggy. Hold over button and click",200,50);
   
   
   

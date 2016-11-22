@@ -22,6 +22,8 @@ class Sun
   {
      fill(c);
      ellipse(x,y, radius * 2, radius * 2); 
+     
+     
     
   }
   
