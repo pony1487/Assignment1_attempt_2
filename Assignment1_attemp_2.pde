@@ -26,6 +26,9 @@ float scalarY;
 //used to diplay each stars own array of planets
 int starIndex;
 
+//used for timer between transition and planet screen
+int transTime;
+
 
 color c;
 
@@ -97,7 +100,8 @@ void setup()
   scalarX = 0;
   scalarY = 0;
   
-   
+  //how long the transition screen will show for before moving to planet screen
+  transTime = 85;
   
   
 }//end setup()
@@ -131,11 +135,11 @@ void draw()
       drawTrenchDisplay();
       break;
     case 3:
-      //Fix this so it wil reset each time it is called!!!
-      background(0);
-      drawTransition();
+       background(0);
+       drawTransition();
       break;
     case 4:
+    
       resetTransition();
       drawStarsPlanets();
       break;
@@ -256,7 +260,7 @@ void drawStarGrid()
           //stars.get(i).drawPlanets();
           starIndex = i;
           println("i: " + starIndex);
-          mode = 4;
+          mode = 3;
        }
    }
 
@@ -493,12 +497,21 @@ void initTransition()
 
 void drawTransition()
 {
-  background(0);
     
-  for(int i = 0; i < trans.size();i++)
-  {
-      trans.get(i).render();
-  }
+    background(0);
+      
+    for(int i = 0; i < trans.size();i++)
+    {
+        trans.get(i).render();
+    }
+    
+    transTime--;
+    
+    if(transTime == 0)
+    {
+       mode = 4; 
+    }
+    
 }//end drawTransistion()
 
 
