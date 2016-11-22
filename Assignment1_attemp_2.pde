@@ -23,6 +23,8 @@ float textY = 600;
 float scalarX;
 float scalarY;
 
+//used to diplay each stars own array of planets
+int starIndex;
 
 
 color c;
@@ -135,7 +137,7 @@ void draw()
       break;
     case 4:
       resetTransition();
-      drawPlanets();
+      drawStarsPlanets();
       break;
     case 5:
       exit(); 
@@ -245,6 +247,18 @@ void drawStarGrid()
     //check for click on star
     stars.get(i).checkForClick();
   }
+  
+  //get the index of what star you are clicking so that it can be used to display the correct planets for that star
+   for(int i = 0; i < stars.size();i++)
+   {
+       if(stars.get(i).isClicked == true)
+       {
+          //stars.get(i).drawPlanets();
+          starIndex = i;
+          println("i: " + starIndex);
+          mode = 4;
+       }
+   }
 
 }//end drawStarGrid
 
@@ -498,11 +512,10 @@ void resetTransition()
   }
 }//end resetTransistion()
 
-void drawPlanets()
+void drawStarsPlanets()
 { 
-  int star = 1;//this is just for testing, this will be replaced
-  
-
+   
+   
    //Draw stars in background
    drawStarsInBackground();
   
@@ -512,11 +525,11 @@ void drawPlanets()
   Sun s = new Sun(50);//change this somehow so sun can be bigger or smaller
   s.render();
   
-  int max = stars.get(star).getNumPlanets();
+  int max = stars.get(starIndex).getNumPlanets();
   
   for(int i = 0; i < max;i++)
   {
-      stars.get(star).planets.get(i).render();
+      stars.get(starIndex).drawPlanets();
       
   }
    
@@ -612,7 +625,9 @@ void drawReadMe()
   String s5 = "Exit: 5";
   String s6 = "Click and HOLD on Menu buttons, they lag";
   background(0);//might not need this
-  
+  textSize(25);
+   fill(247, 197, 0);
+
   textAlign(CENTER, CENTER);
   drawStarsInBackground();
   text(s,textX,textY);

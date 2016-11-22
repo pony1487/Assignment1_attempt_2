@@ -6,9 +6,11 @@ class Star
   float mappedX, mappedY;
   float size;
   
+  
   ArrayList<Planet> planets;
   
   boolean overStar;
+  boolean isClicked;
   
   Star()
   {
@@ -21,6 +23,8 @@ class Star
         x = row.getFloat("x_pos");
         y = row.getFloat("y_pos");
         size = row.getFloat("size");
+        
+        isClicked = false;
         
         planets = new ArrayList<Planet>();
         
@@ -69,7 +73,14 @@ class Star
        
         //display planets
         //mode = 2;
-    }//end if
+        //drawPlanets();
+        isClicked = true;
+        
+    }
+    else
+    {
+        isClicked = false;
+    }
    
     
   }//end update()
@@ -82,6 +93,16 @@ class Star
       }
     
   }//end printPlanets
+  
+  void drawPlanets()
+  {
+    for(int i = 0; i < planets.size();i++)
+    {  
+        planets.get(i).render();
+    }
+    
+    
+  }
   
 
   int getNumPlanets()
