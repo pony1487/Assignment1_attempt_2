@@ -396,18 +396,40 @@ void drawFader()
 void drawTrenchDisplay()
 {
     
+    //this is messy!!! Started to run out of time
     float x = 50;
     float y = padding * 3;
     float displayPadding = 100;
-    
     float rectWidth = width / 2 - displayPadding;
     float rectHeight = height / 2 - (padding * 4);
+    
+    float centerX = rectWidth / 2 + x;
+    float centerY =  rectHeight/ 2 + y;
+    float centerRectWidth = 50;
+    float centerRectHeight = 50;
+    float floorY = 100;
     
     stroke(249, 242, 34);
     noFill();
     strokeWeight(2);
+    //draw border
     rect(x,y,rectWidth,rectHeight);
   
+    //draw center box
+    fill(249, 242, 34);
+    ellipse(centerX,centerY,20,20);
+    noFill();
+    rect(centerX - (centerRectWidth / 2),centerY - (centerRectHeight / 2) , centerRectWidth, centerRectHeight);
+    
+    //draw walls
+    line(centerX - (centerRectWidth / 2),centerY - (centerRectHeight / 2), x, y);
+    line(centerX + (centerRectWidth / 2), centerY - (centerRectHeight / 2), (rectWidth + x), y);
+    
+    line(centerX - (centerRectWidth / 2),centerY + (centerRectHeight / 2), x, (rectHeight + y));
+    line(centerX + (centerRectWidth / 2), centerY + (centerRectHeight / 2), (rectWidth + x),  (rectHeight + y) );
+   
+    //draw floor
+     line(centerX - 100,centerY + floorY,centerX + 100 , centerY + floorY );
     //text("Star wars trench??", x + 100, y + 100);
   
 }//end drawCircleDisplay
