@@ -14,6 +14,8 @@ Minim minim;
 AudioPlayer song;
 AudioPlayer warp;
 AudioPlayer sat_noise;
+AudioPlayer astronaut;
+
 float volume;
 
 //global variables
@@ -120,7 +122,10 @@ void setup()
   song = minim.loadFile("spacewind.wav");
   warp = minim.loadFile("warpDriveEdited.mp3");
   sat_noise = minim.loadFile("sat_noise.mp3");
+  astronaut = minim.loadFile("astronaut.mp3");
   song.play();
+  
+  volume = 0;
   
 }//end setup()
 
@@ -143,15 +148,18 @@ void draw()
     case 0:
       //song.play();
       resetTransition();
+      astronaut.rewind();
       //slow to load and to change to this...
       drawSunAtBottom();
       drawMenu();
       drawStarsInBackground();
       break;
      case 1:
+       astronaut.rewind();
        drawReadMe();
        break;
     case 2:
+      astronaut.play();
       textSize(11);
       resetTransition();
       //printStars();
@@ -164,13 +172,14 @@ void draw()
       break;
     case 3:
        background(0);
+       astronaut.rewind();
        sat_noise.rewind();//makes the sound play again while going back and forth entween menus
        warp.play();
        drawTransition();
        
       break;
     case 4:
-    
+      astronaut.rewind();
       warp.rewind();
       sat_noise.play();
       resetTransition();
@@ -395,6 +404,8 @@ void drawFader()
     float bottomPadding = (height / 2) - panelHeight;
     float sidePadding = (panelWidth / 2) + panelX;
     
+    //used to get faderY and map it for volume
+    float mapped;
     
     
     //fader variables
@@ -427,6 +438,10 @@ void drawFader()
     fader.update();
     fader.render();
     fader.leftMenuLight();
+    
+    volume = map(fader.getFaderY(),  555, 320 - 8, 0, 20);
+    
+     astronaut.setGain(volume);
     
     
   

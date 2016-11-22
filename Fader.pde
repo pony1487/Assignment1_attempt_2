@@ -93,4 +93,9 @@ class Fader
     //println("MappedY: " + mappedY);
     //println("Y: " + faderY);
   }
+  
+  float getFaderY()
+  {
+      return faderY;
+  }
 }//end class
