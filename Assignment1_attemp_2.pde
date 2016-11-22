@@ -7,6 +7,15 @@
 
 */
 
+ //audio stuff
+import ddf.minim.*;
+ 
+Minim minim;
+AudioPlayer song;
+AudioPlayer warp;
+AudioPlayer sat_noise;
+float volume;
+
 //global variables
 float padding;
 float centerX;
@@ -62,7 +71,7 @@ ArrayList<Transition> trans = new ArrayList<Transition>();
 void setup()
 {
   size(1000,600);
-  frameRate(50);
+  frameRate(30);
   mode = 0;
   
   //init variables
@@ -102,10 +111,27 @@ void setup()
   scalarY = 0;
   
   //how long the transition screen will show for before moving to planet screen
-  transTime = 85;
+  transTime = 120;
   
+  //init audio stuff
+  minim = new Minim(this);
+ 
+  //Play space background noise
+  song = minim.loadFile("spacewind.wav");
+  warp = minim.loadFile("warpDriveEdited.mp3");
+  sat_noise = minim.loadFile("sat_noise.mp3");
+  song.play();
   
 }//end setup()
+
+void stop( )
+{
+ 
+ song.close();
+ warp.close();
+ sat_noise.close();
+
+}
 
 void draw()
 {
@@ -115,6 +141,7 @@ void draw()
   switch(mode)
   {
     case 0:
+      //song.play();
       resetTransition();
       //slow to load and to change to this...
       drawSunAtBottom();
@@ -137,12 +164,17 @@ void draw()
       break;
     case 3:
        background(0);
+       sat_noise.rewind();//makes the sound play again while going back and forth entween menus
+       warp.play();
        drawTransition();
+       
       break;
     case 4:
     
+      warp.rewind();
+      sat_noise.play();
       resetTransition();
-       transTime = 85;//reset time
+       transTime = 120;//reset time
       drawStarsPlanets();
       break;
     case 5:
@@ -530,7 +562,8 @@ void resetTransition()
 void drawStarsPlanets()
 { 
    
-   
+   fill(249, 242, 34);
+   text("Click anywhere to go back", 100,50);
    //Draw stars in background
    drawStarsInBackground();
   
