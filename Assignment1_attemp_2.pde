@@ -20,12 +20,6 @@ float textX = 500;//used for scrolling readme
 float textY = 600;
 
 //use for trench function
-float lineX;
-float lineY;
-
-float lineX1;
-float lineY1;
-
 float scalarX;
 float scalarY;
 
@@ -96,12 +90,8 @@ void setup()
   //init buttons
   initButtons();
   
-  //init variables for trench
-  lineX =width/2;
-  lineY =height/2;
-  lineX1 =width/2;
-  lineY1 =height/2 + 10;
-  
+
+  //init for trench function, multiply line x and y be this to increase size and make move
   scalarX = 0;
   scalarY = 0;
   
@@ -407,20 +397,40 @@ void drawTrenchDisplay()
     float centerY =  rectHeight/ 2 + y;
     float centerRectWidth = 50;
     float centerRectHeight = 50;
-    float floorY = 100;
+    float floor1Y = 70;
+    float floor2Y = 35;
+    
+    //moving line variables
+    //left line
+    float lineX1 = centerX - (centerRectWidth / 2);
+    float lineY1 = centerY - (centerRectHeight / 2);
+    float lineX2 = centerX - (centerRectWidth / 2);
+    float lineY2 = centerY + (centerRectHeight / 2);
+    
+    //right line
+    float lineX3 = centerX + (centerRectWidth / 2);
+    float lineY3 = centerY - (centerRectHeight / 2);
+    float lineX4 = centerX + (centerRectWidth / 2);
+    float lineY4 = centerY + (centerRectHeight / 2);
     
     stroke(249, 242, 34);
+    
     noFill();
     strokeWeight(2);
     //draw border
     rect(x,y,rectWidth,rectHeight);
   
     //draw center box
-    fill(249, 242, 34);
+    //fill(0, 249, 4);
+    //stroke(0, 249, 4);
+     fill(0, 55, 255);
+     stroke(0, 55, 255);
     ellipse(centerX,centerY,20,20);
     noFill();
     rect(centerX - (centerRectWidth / 2),centerY - (centerRectHeight / 2) , centerRectWidth, centerRectHeight);
     
+    //stroke(0, 249, 4);
+    stroke(0, 55, 255);
     //draw walls
     line(centerX - (centerRectWidth / 2),centerY - (centerRectHeight / 2), x, y);
     line(centerX + (centerRectWidth / 2), centerY - (centerRectHeight / 2), (rectWidth + x), y);
@@ -429,9 +439,25 @@ void drawTrenchDisplay()
     line(centerX + (centerRectWidth / 2), centerY + (centerRectHeight / 2), (rectWidth + x),  (rectHeight + y) );
    
     //draw floor
-     line(centerX - 100,centerY + floorY,centerX + 100 , centerY + floorY );
+     line(centerX - 100,centerY + floor1Y,centerX + 100 , centerY + floor1Y );
+     line(centerX - 40,centerY + floor2Y,centerX + 40 , centerY + floor2Y );
     //text("Star wars trench??", x + 100, y + 100);
+    
+    
+    //draw Moving lines at side
+    stroke(255,0,0);
+    line(( lineX1 - scalarX), (lineY1 - scalarY), (lineX2 - scalarX), (lineY2 + scalarY));
+    line(( lineX3 + scalarX), (lineY3 - scalarY), (lineX4 + scalarX), (lineY4 + scalarY));
   
+    //change the values of x and y so it moves
+     scalarY += 0.18;
+     scalarX += 0.3;
+     
+     if( (lineX1 + scalarX > rectWidth)  || ( lineY1 + scalarY > rectHeight) ||  (lineX2 + scalarX > rectWidth)  || ( lineY2 + scalarY > rectHeight) )
+     {
+         scalarY = 0;
+         scalarX = 0;
+     }
 }//end drawCircleDisplay
 
 void initTransition()
