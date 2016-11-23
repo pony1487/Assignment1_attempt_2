@@ -14,7 +14,7 @@ Minim minim;
 AudioPlayer song;
 AudioPlayer warp;
 AudioPlayer sat_noise;
-AudioPlayer astronaut;
+
 
 float volume;
 
@@ -23,12 +23,15 @@ float padding;
 float centerX;
 float centerY;
 int rowCount;
+float rowCount2;
 float maxStarX;
 float maxStarY;
 int mode;//used to switch between screens
 
 float textX = 500;//used for scrolling readme
 float textY = 600;
+
+float dRainTextY;//used to scroll the text in the digitalRain Box
 
 //use for trench function
 float scalarX;
@@ -55,6 +58,8 @@ Fader fader;
 Button b;
 Button b2;
 Button b3;
+DigitalRain dRain;
+
 
 //button variables
 float buttonX, buttonY;
@@ -65,10 +70,12 @@ float buttonSpacing;
 //tables
 Table table;
 
+
 //arrays
 String[] menuArray = new String[5];
 ArrayList<Star> stars = new ArrayList<Star>();
 ArrayList<Transition> trans = new ArrayList<Transition>();
+
 
 void setup()
 {
@@ -84,6 +91,7 @@ void setup()
   
   //read data from file 
   table = loadTable("Stars.csv", "header");
+  
   rowCount = table.getRowCount();
   loadData();
   
@@ -107,6 +115,9 @@ void setup()
   //init buttons
   initButtons();
   
+  //init digitalRain
+  dRain = new DigitalRain( width/2.0, (height/2.0 + padding * 4),450,250);
+  
 
   //init for trench function, multiply line x and y be this to increase size and make move
   scalarX = 0;
@@ -122,10 +133,13 @@ void setup()
   song = minim.loadFile("spacewind.wav");
   warp = minim.loadFile("warpDriveEdited.mp3");
   sat_noise = minim.loadFile("sat_noise.mp3");
-  astronaut = minim.loadFile("astronaut.mp3");
+
   song.play();
   
   volume = 0;
+  
+  //init text for Drain
+  dRainTextY = 20;
   
 }//end setup()
 
@@ -135,6 +149,7 @@ void stop( )
  song.close();
  warp.close();
  sat_noise.close();
+
 
 }
 
@@ -148,18 +163,22 @@ void draw()
     case 0:
       //song.play();
       resetTransition();
-      astronaut.rewind();
+      
       //slow to load and to change to this...
       drawSunAtBottom();
       drawMenu();
       drawStarsInBackground();
       break;
      case 1:
-       astronaut.rewind();
+     
        drawReadMe();
        break;
     case 2:
-      astronaut.play();
+    
+      //reset audio
+      warp.rewind();
+      sat_noise.rewind();
+      
       textSize(11);
       resetTransition();
       //printStars();
@@ -169,17 +188,18 @@ void draw()
       drawHeader(); 
       drawFader();
       drawTrenchDisplay();
+      drawDigitalRain();
       break;
     case 3:
        background(0);
-       astronaut.rewind();
+       
        sat_noise.rewind();//makes the sound play again while going back and forth entween menus
        warp.play();
        drawTransition();
        
       break;
     case 4:
-      astronaut.rewind();
+      
       warp.rewind();
       sat_noise.play();
       resetTransition();
@@ -207,6 +227,7 @@ void loadData()
         
         stars.add(s);
     }
+    
   
 }//end loadData()
 
@@ -404,8 +425,6 @@ void drawFader()
     float bottomPadding = (height / 2) - panelHeight;
     float sidePadding = (panelWidth / 2) + panelX;
     
-    //used to get faderY and map it for volume
-    float mapped;
     
     
     //fader variables
@@ -439,15 +458,10 @@ void drawFader()
     fader.render();
     fader.leftMenuLight();
     
-    volume = map(fader.getFaderY(),  555, 320 - 8, 0, 20);
-    
-     astronaut.setGain(volume);
-    
-    
-  
+    //volume = map(fader.getFaderY(),  555, 320 - 8, 0, 100);
+    volume = map(fader.getFaderY(),  500, 320 - 8, 0, 100);
+    song.setGain(volume);
    
-  
-  
 }//end drawFader()
 
 void drawTrenchDisplay()
@@ -725,7 +739,21 @@ void drawReadMe()
   
 }//end drawReadme()
 
-
+void drawDigitalRain()
+{
+ 
+  
+  dRain.render(dRainTextY); 
+  dRainTextY++;
+  println(dRainTextY);
+  
+   if(dRainTextY >= 250)
+  {
+     dRainTextY = 5; 
+  }
+  
+  
+}
 
 void keyPressed()
 {
