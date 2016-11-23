@@ -70,13 +70,14 @@ float buttonSpacing;
 
 //tables
 Table table;
+Table table2;
 
 
 //arrays
-String[] menuArray = new String[5];
+String[] menuArray;
 ArrayList<Star> stars = new ArrayList<Star>();
 ArrayList<Transition> trans = new ArrayList<Transition>();
-
+ArrayList<String> lines = new ArrayList<String>();
 
 void setup()
 {
@@ -92,6 +93,9 @@ void setup()
   
   //read data from file 
   table = loadTable("Stars.csv", "header");
+
+  //load file into array for the digitalRain screen
+  menuArray = loadStrings("lines.txt");
   
   rowCount = table.getRowCount();
   loadData();
@@ -118,7 +122,7 @@ void setup()
   initButtons();
   
   //init digitalRain
-  dRain = new DigitalRain( width/2.0, (height/2.0 + padding * 4),450,250);
+  dRain = new DigitalRain( width/2.0, (height/2.0 + padding * 4),450,250,menuArray);
   
 
   //init for trench function, multiply line x and y be this to increase size and make move
@@ -229,6 +233,17 @@ void loadData()
         
         stars.add(s);
     }
+    
+    
+  
+    /*
+    for(int i = 0; i < table2.getRowCount();i++)
+    {
+        TableRow row = table2.getRow(i);
+        String s = row.getString(i);
+        lines.add(s);
+    }
+    */
     
   
 }//end loadData()
