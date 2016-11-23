@@ -449,9 +449,18 @@ void drawFader()
     noFill();
     rect(panelX, panelY, panelWidth,panelHeight);
     
+    //draw fade2 background
+    //go back over this and make it a class so it can be reused easliy
+    noFill();
+    rect(panelX + 250, panelY, panelWidth,panelHeight);
+    
     //draw line
     
     line(sidePadding, panelY + 25, (panelWidth / 2) + panelX, (height - bottomPadding) - 25);
+    
+    //draw line for second fader
+    line(sidePadding +250, panelY + 25, (panelWidth / 2) + panelX + 250, (height - bottomPadding) - 25);
+    
     
     //draw fader 
     
