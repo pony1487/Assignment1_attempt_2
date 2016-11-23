@@ -13,10 +13,12 @@ class Fader
   boolean over; //is mouse over slider?
 
   color c;
+  
+  String label;
 
 
 
-  Fader(float faderX, float faderY, int faderWidth, int faderHeight, color c)
+  Fader(float faderX, float faderY, int faderWidth, int faderHeight, color c, String label)
   {
     this.faderX = faderX;
     this.faderY = faderY;
@@ -25,6 +27,7 @@ class Fader
     this.faderWidth = faderWidth;
     this.faderHeight = faderHeight;
     this.c = c;
+    this.label = label;
   }
 
   void update() 
@@ -69,6 +72,8 @@ class Fader
   void render()
   {
     rect(  faderX, faderY, faderWidth, faderHeight);
+    fill(255);
+    text(label, faderX + (faderWidth / 2),faderY + (faderHeight / 2));
 
     //println("Y: " + faderY);
     //println(mouseY);

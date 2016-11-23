@@ -55,6 +55,7 @@ color faderColor;
 
 //objects
 Fader fader;
+Fader fader2;
 Button b;
 Button b2;
 Button b3;
@@ -110,7 +111,8 @@ void setup()
   color faderColor = color(0,102,102);
   
   //init fader
-  fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor); 
+  fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor, "Volume"); 
+  fader2 = new Fader(faderX + 250, faderY, faderWidth, faderHeight, faderColor, "Text Speed");
   
   //init buttons
   initButtons();
@@ -458,6 +460,8 @@ void drawFader()
     fader.render();
     fader.leftMenuLight();
     
+    
+    
     //volume = map(fader.getFaderY(),  555, 320 - 8, 0, 100);
     volume = map(fader.getFaderY(),  500, 320 - 8, 0, 100);
     song.setGain(volume);
@@ -741,12 +745,19 @@ void drawReadMe()
 
 void drawDigitalRain()
 {
- 
+    fill(fader2.c);
+    stroke(98,117,8);
+    fader2.update();
+    fader2.render();
+    float faderY = fader2.getFaderY();
+    
+    float mapped = map(faderY, 320,500, 0, 10);
   
   dRain.render(dRainTextY); 
-  dRainTextY++;
+  dRainTextY = dRainTextY + mapped;
   println(dRainTextY);
   
+  //reset the textY position so it scrolls
    if(dRainTextY >= 250)
   {
      dRainTextY = 5; 
