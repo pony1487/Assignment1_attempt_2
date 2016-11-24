@@ -116,7 +116,7 @@ void setup()
   
   //init fader
   fader = new Fader(faderX, faderY,faderWidth, faderHeight,faderColor, "Volume"); 
-  fader2 = new Fader(faderX + 250, faderY, faderWidth, faderHeight, faderColor, "Text Speed");
+  fader2 = new Fader(faderX + 250, faderY, faderWidth, faderHeight, faderColor, "Arc Speed");
   
   //init buttons
   initButtons();
@@ -186,6 +186,7 @@ void draw()
       sat_noise.rewind();
       
       textSize(11);
+      
       resetTransition();
       //printStars();
       drawStarGrid();
@@ -775,17 +776,15 @@ void drawDigitalRain()
     fader2.render();
     float faderY = fader2.getFaderY();
     
-    float mapped = map(faderY, 320,500, 0, 10);
+    //float mapped = map(faderY, 320,500, 0, 10);
+  float mapped = map(faderY, 550,320, 0.1, 0.5);
+  float mapped2 = map(faderY, 550,320, 0.1, 0.5);
   
-  dRain.render(dRainTextY); 
-  dRainTextY = dRainTextY + mapped;
-  println(dRainTextY);
+  dRain.render(mapped,mapped2); 
+ 
   
-  //reset the textY position so it scrolls
-   if(dRainTextY >= 250)
-  {
-     dRainTextY = 5; 
-  }
+  
+
   
   
 }
