@@ -3,7 +3,7 @@
   Object Oriented Programming Assignment 1
   Ronan Connolly
   
-  NOTE: Menu is buttons are slow to react to clicks
+  NOTE: Menu is buttons are slow to react to clicks becuase of the filter(blur) function used to make the sun at the bottom
 
 */
 
@@ -14,8 +14,7 @@ Minim minim;
 AudioPlayer song;
 AudioPlayer warp;
 AudioPlayer sat_noise;
-
-
+AudioPlayer hal;
 float volume;
 
 //global variables
@@ -26,12 +25,14 @@ int rowCount;
 float rowCount2;
 float maxStarX;
 float maxStarY;
-int mode;//used to switch between screens
 
-float textX = 500;//used for scrolling readme
+//used to switch between screens
+int mode;
+
+//used for scrolling readme
+float textX = 500;
 float textY = 600;
 
-float dRainTextY;//used to scroll the text in the digitalRain Box
 
 //use for trench function
 float scalarX;
@@ -60,6 +61,7 @@ Button b;
 Button b2;
 Button b3;
 DigitalRain dRain;
+Sun sun;
 
 
 //button variables
@@ -70,14 +72,14 @@ float buttonSpacing;
 
 //tables
 Table table;
-Table table2;
+
 
 
 //arrays
 String[] menuArray;
 ArrayList<Star> stars = new ArrayList<Star>();
 ArrayList<Transition> trans = new ArrayList<Transition>();
-ArrayList<String> lines = new ArrayList<String>();
+
 
 void setup()
 {
@@ -93,9 +95,6 @@ void setup()
   
   //read data from file 
   table = loadTable("Stars.csv", "header");
-
-  //load file into array for the digitalRain screen
-  menuArray = loadStrings("lines.txt");
   
   rowCount = table.getRowCount();
   loadData();
@@ -122,7 +121,7 @@ void setup()
   initButtons();
   
   //init digitalRain
-  dRain = new DigitalRain( width/2.0, (height/2.0 + padding * 4),450,250,menuArray);
+  dRain = new DigitalRain( width/2.0, (height/2.0 + padding * 4),450,250);
   
 
   //init for trench function, multiply line x and y be this to increase size and make move
@@ -139,13 +138,14 @@ void setup()
   song = minim.loadFile("spacewind.wav");
   warp = minim.loadFile("warpDriveEdited.mp3");
   sat_noise = minim.loadFile("sat_noise.mp3");
+  hal = minim.loadFile("cantdo.mp3");
 
   song.play();
   
   volume = 0;
   
-  //init text for Drain
-  dRainTextY = 20;
+  sun = new Sun();
+ 
   
 }//end setup()
 
@@ -235,18 +235,6 @@ void loadData()
         stars.add(s);
     }
     
-    
-  
-    /*
-    for(int i = 0; i < table2.getRowCount();i++)
-    {
-        TableRow row = table2.getRow(i);
-        String s = row.getString(i);
-        lines.add(s);
-    }
-    */
-    
-  
 }//end loadData()
 
 void printStars()
@@ -273,7 +261,7 @@ void drawStarGrid()
   int rect_size = 25;
   
   //draw Border around grid
-  stroke(c);
+  stroke(98,117,8);
   strokeWeight(3);
   noFill();
   rect(gridX - 2, gridY - 2, grid_width + 2, grid_height -20);
@@ -320,12 +308,7 @@ void drawStarGrid()
     noFill();
     ellipse(mappedX, mappedY, stars.get(i).size,stars.get(i).size);
     textAlign(CENTER);
-    //text(stars.get(i).name, mappedX + 10, mappedY + 20);
-    
-    
-    //println("Mapped X in main: " + mappedX);
-    //println("Mapped Y in main: " + mappedY);
-    
+ 
     //give each star its mapped values
     stars.get(i).mappedX = mappedX;
     stars.get(i).mappedY = mappedY;
@@ -347,9 +330,6 @@ void drawStarGrid()
    }
 
 }//end drawStarGrid
-
-
-
 
 
 void starMaxMin()
@@ -379,8 +359,6 @@ void starMaxMin()
     
   }
   
-  //println("Max X from file: " + maxStarX);
-  //println("Max Y from file: " + maxStarY);
 }//end max
 
 
@@ -396,7 +374,7 @@ void drawHeader()
     stroke(98,117,8);
     strokeWeight(3);
     line(lineX,20, width -120, 20);
-    //rect(lineX - 15,12, width - 120, 4);//hard coded until I figure out why line is not working
+  
     
 }//end drawHeader()
 
@@ -419,7 +397,6 @@ void drawLeftMenu()
        count = count - 10;
    }
    
-  
   //draw rects
    for(int i = 0; i < height; i++)
    {
@@ -431,7 +408,6 @@ void drawLeftMenu()
 
 void drawFader()
 {
-    //This is messy and could be cleaned up
     //back panel variables
     float panelX = 50;
     float panelY = height / 2;
@@ -442,23 +418,6 @@ void drawFader()
     //padding of box/panel/rect around the fader
     float bottomPadding = (height / 2) - panelHeight;
     float sidePadding = (panelWidth / 2) + panelX;
-    
-    
-    
-    //fader variables
-    /*
-    float faderX = panelX + 10;
-    float faderY = height - 50;
-    
-    int faderWidth = 125;
-    int faderHeight = 20;
-    color c = color(0,102,102);
-    */
-    
-    
-    //create Fader object
-    //happeing each frame and reseting the faders Y value??---Has to be done in setup()
-   // Fader fader = new Fader(faderX,faderY,faderWidth, faderHeight,c);
     
     //draw fader background
     stroke(98,117,8);
@@ -479,12 +438,10 @@ void drawFader()
     
     
     //draw fader 
-    
     fill(fader.c);
     fader.update();
     fader.render();
     fader.leftMenuLight();
-    
     
     
     //volume = map(fader.getFaderY(),  555, 320 - 8, 0, 100);
@@ -523,7 +480,7 @@ void drawTrenchDisplay()
     float lineX4 = centerX + (centerRectWidth / 2);
     float lineY4 = centerY + (centerRectHeight / 2);
     
-    stroke(249, 242, 34);
+    stroke(98,117,8);
     
     noFill();
     strokeWeight(2);
@@ -531,8 +488,6 @@ void drawTrenchDisplay()
     rect(x,y,rectWidth,rectHeight);
   
     //draw center box
-    //fill(0, 249, 4);
-    //stroke(0, 249, 4);
      fill(0, 55, 255);
      stroke(0, 55, 255);
     ellipse(centerX,centerY,20,20);
@@ -584,7 +539,7 @@ void initTransition()
       trans.add(t);
   }
   
-}//end initTransition(0
+}//end initTransition
 
 
 void drawTransition()
@@ -602,6 +557,7 @@ void drawTransition()
     if(transTime == 0)
     {
        mode = 4; 
+       warp.pause();//stops the file crackling into the next screen
     }
     
 }//end drawTransistion()
@@ -628,8 +584,9 @@ void drawStarsPlanets()
   
   //this stops the Transistion screen from affecting the planets borders
   noStroke();
-  Sun s = new Sun(50);//change this somehow so sun can be bigger or smaller
-  s.render();
+ 
+  //Sun s = new Sun();
+  sun.render();
   
   int max = stars.get(starIndex).getNumPlanets();
   
@@ -643,6 +600,8 @@ void drawStarsPlanets()
   {
     
       mode = 2;
+      sat_noise.pause();//stops sound from popping while on the next screen
+      
      
   }
    
@@ -721,7 +680,7 @@ void drawSunAtBottom()
   
   //draw another arc above the sun and blur it
   fill(247, 90, 0);
-  filter( BLUR, 6 );
+  filter( BLUR, 6 );//this slows menu down
   arc(x,y,w,h - 20,start,stop);
   
 }//end drawSunAtBottom();
@@ -780,7 +739,23 @@ void drawDigitalRain()
   float mapped = map(faderY, 550,320, 0.1, 0.5);
   float mapped2 = map(faderY, 550,320, 0.1, 0.5);
   
-  dRain.render(mapped,mapped2); 
+  //mapped values for color change of arc
+  float mappedColor = map(faderY, 550,320, 0, random(0,255));
+  
+  if(mapped == 0.5)
+  {
+    hal.play();
+    
+  }
+  
+  if(mapped == 0.1)
+  {
+    
+     hal.rewind();  
+     hal.pause();
+  }
+  
+  dRain.render(mapped,mapped2,mappedColor); 
  
   
   

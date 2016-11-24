@@ -3,10 +3,7 @@ class DigitalRain
    float borderX, borderY;
    int w, h;
    String s;
-   float textX;
-   float textY;
-   float temp = 15;
-   String[] array;
+
    float arcx;
    float arcy;
    float scalar;
@@ -16,7 +13,7 @@ class DigitalRain
    
    //Load a file of strings and have that displayed
    
-   DigitalRain(float borderX, float borderY, int w, int h, String[] array)
+   DigitalRain(float borderX, float borderY, int w, int h)
    {
        this.borderX = borderX;
        this.borderY = borderY;
@@ -30,37 +27,88 @@ class DigitalRain
        arcStart = 0;
        
        
-       textX = 150;
-       textY = 20;
-      // s = "Test Test Test Tese";
-       this.array = array;
+    
      
        
    }
   
-  void render(float s, float a)
+  void render(float s, float a,float c)
   {
      noFill();
-     stroke(255);
+     stroke(98,117,8);
      rect(borderX,borderY, w, h);  
      fill(247, 197, 0);
      
-     /*
-     for(int i = 0; i < array.length; i++)
-     {
-       text(array[i], borderX + textX, borderY + y);
-       
-     }
-     */
      
      strokeWeight(3);
+     //stroke(random(0,255), random(0,255) ,c);
+     stroke( 247, 197,c);
+     
+      //hal border
+     stroke(171, 173, 171);
+     fill(110, 0, 0);
+     ellipse(arcx,arcy, 225,225);
+     stroke(204, 206, 204);
+     ellipse(arcx,arcy, 234,234);
+     stroke(98,117,8);
+     ellipse(arcx,arcy, 240,240);
+     
+     //draw arc rotating
+     noStroke();
+     fill(255,0,0);
+     ellipse(arcx,arcy, 20,20);
+     
      noFill();
-     //arc(arcx, arcy, 200,200,0,HALF_PI);
-      arc(arcx, arcy, 200, 200, arcStart, HALF_PI + scalar);
-     arc( arcx, arcy, 75, 75, -arcStart, HALF_PI - scalar);
-      arcStart = arcStart + a;
+     stroke( 230,0,0);
+     arc( arcx, arcy, 25, 25, arcStart, HALF_PI + scalar);
+     
+     stroke( 230,0,0);
+     arc( arcx, arcy, 30, 30, -arcStart, HALF_PI - scalar);
+     
+     stroke( 230,0,0);
+     arc( arcx, arcy, 35, 35, arcStart, HALF_PI + scalar);
+     
+     stroke( 230,0,0);
+     arc( arcx, arcy, 40, 40, -arcStart, HALF_PI - scalar);
+     
+     stroke( 230,0,0);
+     arc( arcx, arcy, 45, 45, arcStart, HALF_PI + scalar);
+     
+     stroke( 200, 0, 0);
+     arc( arcx, arcy, 50, 50, -arcStart, HALF_PI - scalar);
+     
+     stroke( 230,0,0);
+     arc( arcx, arcy, 55, 55, arcStart, HALF_PI + scalar);
+     
+     stroke( 230,0,0);
+     arc( arcx, arcy, 60, 60, -arcStart, HALF_PI - scalar);
+     
+     stroke( 190, 0, 0);
+     arc( arcx, arcy, 75, 75, arcStart, HALF_PI + scalar);
+     
+     stroke( 180, 0, 0);
+     arc( arcx, arcy, 100, 100, arcStart, HALF_PI + scalar);
+     
+     stroke( 160, 0, 0);
+     arc(arcx, arcy, 200, 200, arcStart, HALF_PI + scalar);
+     
+     stroke( 140, 0, 0);
+     arc( arcx, arcy, 210, 210, arcStart, HALF_PI + scalar);
+     
+     stroke( 110, 0, 0);
+     arc( arcx, arcy, 215, 215, -arcStart, HALF_PI - scalar);
+     
+     
+    
+     
+    
+     
+     
+     
+     
       
-      //scalar = scalar + 0.1;
+      //arc speed is mapped to the fader
+      arcStart = arcStart + a;
       scalar = scalar + s;
      
      
@@ -68,11 +116,4 @@ class DigitalRain
     
   }
   
-  void printList()
-  {
-     for(int i = 0; i < lines.size();i++)
-     {
-        println(lines.get(i)); 
-     }
-  }
 }
