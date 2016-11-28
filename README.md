@@ -66,5 +66,6 @@ The planet view will show the planets each star has. The planets are stored in a
 There is a base class SpaceObject. The Asteriod Class and the UFO Class inherit common fields to reduce duplicate code. There is one Asteroid object and one UFO object stored in an arrayList of
 SpaceObjects. While iterating through this arrayList the correct method is called for the each object. If one of these objects hits a planet it is removed from the arrayList.
 
+http://img.youtube.com/vi/https://youtu.be/MnEqwMS12lw/0.jpg)](http://www.youtube.com/watch?v=https://youtu.be/MnEqwMS12lw
 
 
