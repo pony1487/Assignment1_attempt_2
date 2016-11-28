@@ -12,19 +12,9 @@ class Asteroid extends SpaceObject
     radius = size / 2;
     this.theta = theta;
 
-
-    accel = new PVector(0, 0);
-    //velocity = new PVector(0,0);
-
     velocity = new PVector(random(1, 5), random(1, 5));
 
-    force = new PVector(0, 0);
-
-    //create a random direction for the asteroid to go
-    //forward = new PVector(random(0,1),random(0,-1));
-    forward = new PVector(-1, 0);
-
-    mass = 1;
+    isAlive = true;
     create();
   }
 
@@ -98,5 +88,13 @@ class Asteroid extends SpaceObject
        velocity.y = velocity.y * -1; 
     }
     
-  }
+    //check if alive
+    if(!isAlive)
+    {
+        spaceObjects.remove(this);
+    }
+    
+  }//end update
+  
+  
 }

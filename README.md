@@ -62,7 +62,9 @@ This screen needs to be reset after each use or it will continue "warping" forev
 **Planet View**
 The planet view will show the planets each star has. The planets are stored in an arrayList Each star object has its own list of planets. The planets are objects, each having their own position, radius, colour and speed.
 
-
+**Use of Inheritance and Polymorphism
+There is a base class SpaceObject. The Asteriod Class and the UFO Class inherit common fields to reduce duplicate code. There is one Asteroid object and one UFO object stored in an arrayList of
+SpaceObjects. While iterating through this arrayList the correct method is called for the each object. If one of these objects hits a planet it is removed from the arrayList.
 
 
 

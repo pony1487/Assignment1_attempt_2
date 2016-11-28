@@ -64,6 +64,7 @@ Button b3;
 DigitalRain dRain;
 Sun sun;
 Asteroid asteroid;
+UFO ufo;
 
 
 //button variables
@@ -220,7 +221,7 @@ void draw()
        transTime = 120;//reset time
       drawStarsPlanets();
       drawSpaceObjects();
-      checkForCollision();
+      
       break;
     case 5:
       exit(); 
@@ -630,7 +631,7 @@ void drawStarsPlanets()
          //because the planets are tranlated to width/2 and height/2 I had to add them here to get the collision to work
           if( ( (spaceObjects.get(i).pos.x >= (starPosX - size) + width/2) ) && ( spaceObjects.get(i).pos.x <= ((starPosX + size) + width/2))  && ( (spaceObjects.get(i).pos.y >= ((starPosY - size) + height/2) )  && (spaceObjects.get(i).pos.y <= ((starPosY + size) + height/2))))
           {
-              println("HIT");
+              spaceObjects.get(i).isAlive = false;
           }
          
       }
@@ -809,12 +810,23 @@ void drawDigitalRain()
 
 void drawSpaceObjects()
 {
+    /*
+    //crashes
    for(int i = 0; i < spaceObjects.size();i++)
    {
        spaceObjects.get(i).update();
        spaceObjects.get(i).render();
        
    }
+   */
+   
+   //taken straight from a lecture
+  for (int i = spaceObjects.size() -1 ; i >= 0  ; i --)
+  {
+    SpaceObject so = spaceObjects.get(i); 
+    so.update();
+    so.render();    
+  }
 }
 
 void initAsteroid()
@@ -829,11 +841,7 @@ void initAsteroid()
   spaceObjects.add(asteroid);
 }
 
-void checkForCollision()
-{
-  
-  
-}
+
 
 void keyPressed()
 {

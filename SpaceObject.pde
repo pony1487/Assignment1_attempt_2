@@ -11,6 +11,8 @@ class SpaceObject
   PVector accel;
   PVector force;
   
+  boolean isAlive;
+  
    SpaceObject()
    {
    }
