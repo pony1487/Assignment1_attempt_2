@@ -37,7 +37,7 @@ class DigitalRain
      noFill();
      stroke(98,117,8);
      rect(borderX,borderY, w, h);  
-     fill(247, 197, 0);
+    
      
      
      strokeWeight(3);
@@ -47,17 +47,21 @@ class DigitalRain
       //hal border
      stroke(171, 173, 171);
      fill(110, 0, 0);
-     ellipse(arcx,arcy, 225,225);
+     ellipse(arcx,arcy, 220,220);
+     noFill();
      stroke(204, 206, 204);
      ellipse(arcx,arcy, 234,234);
      stroke(98,117,8);
      ellipse(arcx,arcy, 240,240);
      
-     //draw arc rotating
+     
+     //draw hal eye
      noStroke();
-     fill(255,0,0);
+     fill(c,0,0);
      ellipse(arcx,arcy, 20,20);
      
+     
+     //draw arc rotating
      noFill();
      stroke( 230,0,0);
      arc( arcx, arcy, 25, 25, arcStart, HALF_PI + scalar);
@@ -92,28 +96,17 @@ class DigitalRain
      stroke( 160, 0, 0);
      arc(arcx, arcy, 200, 200, arcStart, HALF_PI + scalar);
      
-     stroke( 140, 0, 0);
+     stroke( 140 + s, 0, 0);
      arc( arcx, arcy, 210, 210, arcStart, HALF_PI + scalar);
      
-     stroke( 110, 0, 0);
+     stroke( 110 + s, 0, 0);
      arc( arcx, arcy, 215, 215, -arcStart, HALF_PI - scalar);
      
-     
-    
-     
-    
-     
-     
-     
-     
-      
+         
       //arc speed is mapped to the fader
       arcStart = arcStart + a;
       scalar = scalar + s;
      
-     
-    
-    
   }
   
 }

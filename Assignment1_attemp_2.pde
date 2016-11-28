@@ -62,6 +62,7 @@ Button b2;
 Button b3;
 DigitalRain dRain;
 Sun sun;
+Asteroid asteroid;
 
 
 //button variables
@@ -79,6 +80,7 @@ Table table;
 String[] menuArray;
 ArrayList<Star> stars = new ArrayList<Star>();
 ArrayList<Transition> trans = new ArrayList<Transition>();
+ArrayList<SpaceObject> spaceObjects = new ArrayList<SpaceObject>();
 
 
 void setup()
@@ -145,6 +147,11 @@ void setup()
   volume = 0;
   
   sun = new Sun();
+  
+  //create a asteroidn and add it to space object array
+  asteroid = new Asteroid();
+  
+  spaceObjects.add(asteroid);
  
   
 }//end setup()
@@ -155,6 +162,7 @@ void stop( )
  song.close();
  warp.close();
  sat_noise.close();
+ hal.close();
 
 
 }
@@ -212,6 +220,7 @@ void draw()
       resetTransition();
        transTime = 120;//reset time
       drawStarsPlanets();
+      drawSpaceObjects();
       break;
     case 5:
       exit(); 
@@ -653,7 +662,7 @@ void drawMenu()
   b3.drawText();
   b3.isClicked();
   textSize(10);
-  text("Menu is laggy. Hold over button and click",200,50);
+  //text("Menu is laggy. Hold over button and click",200,50);
   
   
   
@@ -680,7 +689,9 @@ void drawSunAtBottom()
   
   //draw another arc above the sun and blur it
   fill(247, 90, 0);
-  filter( BLUR, 6 );//this slows menu down
+  
+  //this looks cool but this slows menu down
+  //filter( BLUR, 6 );
   arc(x,y,w,h - 20,start,stop);
   
 }//end drawSunAtBottom();
@@ -711,6 +722,9 @@ void drawReadMe()
   text(s5,textX,textY + 175);
   text(s6,textX,textY + 200);
   
+  textSize(10);
+  text("Click here to go back", width - 100, 50);
+  
   textY--;
   
   if(textY == -175)
@@ -718,7 +732,8 @@ void drawReadMe()
      textY = 600;
   }
   
-    if(mousePressed)
+  //when the blur is taken off  the sun on the menu screen the readme screen keeps fliping modes while being click. This stops it
+  if(mousePressed && (mouseX >= width - 200) && (mouseY > 50))
   {
     
       mode = 0;
@@ -740,7 +755,7 @@ void drawDigitalRain()
   float mapped2 = map(faderY, 550,320, 0.1, 0.5);
   
   //mapped values for color change of arc
-  float mappedColor = map(faderY, 550,320, 0, random(0,255));
+  float mappedColor = map(faderY, 550,320, 140,255 );
   
   if(mapped == 0.5)
   {
@@ -757,11 +772,14 @@ void drawDigitalRain()
   
   dRain.render(mapped,mapped2,mappedColor); 
  
-  
-  
+}
 
-  
-  
+void drawSpaceObjects()
+{
+   for(int i = 0; i < spaceObjects.size();i++)
+   {
+       spaceObjects.get(i).render();
+   }
 }
 
 void keyPressed()
