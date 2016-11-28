@@ -7,6 +7,10 @@ class SpaceObject
   float radius;
   float theta;
   
+  PVector velocity;
+  PVector accel;
+  PVector force;
+  
    SpaceObject()
    {
    }

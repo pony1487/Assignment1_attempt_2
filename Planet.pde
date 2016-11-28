@@ -44,5 +44,17 @@ class Planet
     
   }
   
+  float getPlanetX()
+  {
+     return posX;
+  }
+  
+  float getPlanetY()
+  {
+     return posY;
+  }
+  
+
+  
   
 }

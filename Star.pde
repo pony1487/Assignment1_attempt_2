@@ -102,9 +102,9 @@ class Star
     }
     
     
-  }
+  }//end drawPlanets()
   
-
+  
   int getNumPlanets()
   {
      return num_planets; 

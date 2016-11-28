@@ -25,6 +25,7 @@ int rowCount;
 float rowCount2;
 float maxStarX;
 float maxStarY;
+float timeDelta = 1.0f / 60.0f;
 
 //used to switch between screens
 int mode;
@@ -146,12 +147,10 @@ void setup()
   
   volume = 0;
   
+  //create new sun
   sun = new Sun();
   
-  //create a asteroidn and add it to space object array
-  asteroid = new Asteroid();
-  
-  spaceObjects.add(asteroid);
+  initAsteroid();
  
   
 }//end setup()
@@ -221,16 +220,14 @@ void draw()
        transTime = 120;//reset time
       drawStarsPlanets();
       drawSpaceObjects();
+      checkForCollision();
       break;
     case 5:
       exit(); 
       break;
       
     
-  }
-  
-  
-  
+  }//end switch
   
   
 }//end draw()
@@ -605,6 +602,42 @@ void drawStarsPlanets()
       
   }
   
+  
+  int counter = 0;
+  float starPosX;
+  float starPosY;
+  float size;
+  
+  while(counter < max)
+  {
+    
+      
+      starPosX = stars.get(starIndex).planets.get(counter).getPlanetX();
+      starPosY = stars.get(starIndex).planets.get(counter).getPlanetY();
+      size = stars.get(starIndex).planets.get(counter).size;
+      //debugging
+      
+     // println("---------------");
+     // println("Star:" + counter + starPosX);
+     // println("star:" + counter + starPosY);
+     // println("---------------");
+      
+      
+      for(int i = 0; i < spaceObjects.size();i++)
+      {
+        
+          
+         //because the planets are tranlated to width/2 and height/2 I had to add them here to get the collision to work
+          if( ( (spaceObjects.get(i).pos.x >= (starPosX - size) + width/2) ) && ( spaceObjects.get(i).pos.x <= ((starPosX + size) + width/2))  && ( (spaceObjects.get(i).pos.y >= ((starPosY - size) + height/2) )  && (spaceObjects.get(i).pos.y <= ((starPosY + size) + height/2))))
+          {
+              println("HIT");
+          }
+         
+      }
+      
+      counter++;
+  }
+  
   if(mousePressed)
   {
     
@@ -778,8 +811,28 @@ void drawSpaceObjects()
 {
    for(int i = 0; i < spaceObjects.size();i++)
    {
+       spaceObjects.get(i).update();
        spaceObjects.get(i).render();
+       
    }
+}
+
+void initAsteroid()
+{
+  //generate a random starting pos for the asteroid
+   float x = random(-50, 0);
+   float y = random(-50, 0);
+  
+  //create a asteroidn and add it to space object array
+ // asteroid = new Asteroid((float)width/2, (float)height/2, 3.0, 50.0);
+  asteroid = new Asteroid(x, y, 0.0, 50.0);//top left
+  spaceObjects.add(asteroid);
+}
+
+void checkForCollision()
+{
+  
+  
 }
 
 void keyPressed()

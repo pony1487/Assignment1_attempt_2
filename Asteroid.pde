@@ -1,37 +1,102 @@
 class Asteroid extends SpaceObject
 {
-    PShape asteroid;
+  PShape asteroid;
+  float mass;
+
+
+
+  Asteroid(float x, float y, float theta, float size)
+  {  
+    pos = new PVector(x, y);
+
+    radius = size / 2;
+    this.theta = theta;
+
+
+    accel = new PVector(0, 0);
+    //velocity = new PVector(0,0);
+
+    velocity = new PVector(random(1, 5), random(1, 5));
+
+    force = new PVector(0, 0);
+
+    //create a random direction for the asteroid to go
+    //forward = new PVector(random(0,1),random(0,-1));
+    forward = new PVector(-1, 0);
+
+    mass = 1;
+    create();
+  }
+
+  void create()
+  {
+
+
+    asteroid = createShape();
+    asteroid.beginShape();
+    asteroid.stroke(0);
+    asteroid.fill(145, 88, 2);
+    asteroid.strokeWeight(2);
+
+    //basic diamond
+    asteroid.vertex(-radius, 0);
+
+    //"rocky side"
+    asteroid.vertex((-radius - 20), radius - 40);
+
+    //basic diamond
+    asteroid.vertex(0, -radius);
+
+    //"rocky side"
+    asteroid.vertex((radius  + 15), 0);
+
+    //basic diamond
+    asteroid.vertex(radius, 0);
+
+    //"rocky side"
+    asteroid.vertex(radius - 15, radius - 12);
+
+    //basic diamond
+    asteroid.vertex(0, radius);
+
+    //"rocky side"
+    asteroid.vertex(0, radius - 12);
+
+
+
+    asteroid.endShape(CLOSE);
+  }
+
+  void render()
+  {
+    pushMatrix(); // Stores the current transform
+    translate(pos.x, pos.y);
+    rotate(theta);  
+    shape(asteroid, 0, 0);
+    popMatrix(); // Restore the transform
+  }
+
+  void update()
+  {
+
+
+    pos.add(velocity);
     
-    Asteroid()
+    //rotate anti clockwise
+    theta -= 0.01;
+
+
+    if (pos.x > width + 100 || pos.x < -100)
     {
-      
+       
+      velocity.x = velocity.x * -1;      
+    }
+
+    if (pos.y > height + 100 || pos.y < -100)
+    {
+     
+       velocity.y = velocity.y * -1; 
     }
     
-    void create()
-    {
-      asteroid = createShape();
-      asteroid.beginShape();
-      asteroid.stroke(255);
-      asteroid.noFill();
-      asteroid.strokeWeight(2);
-      asteroid.vertex(-radius, radius);
-      asteroid.vertex(0, - radius);
-      asteroid.vertex(radius, radius);
-      asteroid.vertex(0, 0);
-      asteroid.endShape(CLOSE);
-    }
-    
-    void render()
-    {
-          pushMatrix(); // Stores the current transform
-          translate(pos.x, pos.y);
-          rotate(theta);  
-          shape(asteroid, 0, 0);
-          popMatrix(); // Restore the transform
-    }
-    
-    void update()
-    {
-    }
-  
+  }
 }
