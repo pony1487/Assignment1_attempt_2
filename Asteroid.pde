@@ -1,9 +1,8 @@
 class Asteroid extends SpaceObject
 {
   PShape asteroid;
-  float mass;
-
-
+  
+ 
 
   Asteroid(float x, float y, float theta, float size)
   {  
@@ -15,6 +14,7 @@ class Asteroid extends SpaceObject
     velocity = new PVector(random(1, 5), random(1, 5));
 
     isAlive = true;
+    
     create();
   }
 
@@ -91,10 +91,12 @@ class Asteroid extends SpaceObject
     //check if alive
     if(!isAlive)
     {
+        
         spaceObjects.remove(this);
     }
     
   }//end update
   
+ 
   
 }

@@ -85,6 +85,7 @@ ArrayList<Transition> trans = new ArrayList<Transition>();
 ArrayList<SpaceObject> spaceObjects = new ArrayList<SpaceObject>();
 
 
+
 void setup()
 {
   size(1000,600);
@@ -151,7 +152,9 @@ void setup()
   //create new sun
   sun = new Sun();
   
-  initAsteroid();
+  initSpaceObjects();
+  
+  
  
   
 }//end setup()
@@ -211,6 +214,7 @@ void draw()
        sat_noise.rewind();//makes the sound play again while going back and forth entween menus
        warp.play();
        drawTransition();
+      
        
       break;
     case 4:
@@ -612,6 +616,7 @@ void drawStarsPlanets()
   while(counter < max)
   {
     
+      //check the stars planets that the user clicked 
       
       starPosX = stars.get(starIndex).planets.get(counter).getPlanetX();
       starPosY = stars.get(starIndex).planets.get(counter).getPlanetY();
@@ -626,13 +631,13 @@ void drawStarsPlanets()
       
       for(int i = 0; i < spaceObjects.size();i++)
       {
-        
-          
          //because the planets are tranlated to width/2 and height/2 I had to add them here to get the collision to work
           if( ( (spaceObjects.get(i).pos.x >= (starPosX - size) + width/2) ) && ( spaceObjects.get(i).pos.x <= ((starPosX + size) + width/2))  && ( (spaceObjects.get(i).pos.y >= ((starPosY - size) + height/2) )  && (spaceObjects.get(i).pos.y <= ((starPosY + size) + height/2))))
-          {
+          {   
               spaceObjects.get(i).isAlive = false;
+        
           }
+          
          
       }
       
@@ -644,7 +649,6 @@ void drawStarsPlanets()
     
       mode = 2;
       sat_noise.pause();//stops sound from popping while on the next screen
-      
      
   }
    
@@ -820,27 +824,35 @@ void drawSpaceObjects()
    }
    */
    
+   
    //taken straight from a lecture
+   
   for (int i = spaceObjects.size() -1 ; i >= 0  ; i --)
   {
     SpaceObject so = spaceObjects.get(i); 
     so.update();
     so.render();    
   }
+  
 }
 
-void initAsteroid()
+void initSpaceObjects()
 {
-  //generate a random starting pos for the asteroid
+  //generate a random starting pos for the asteroid adn ufo OFF screen
    float x = random(-50, 0);
    float y = random(-50, 0);
+   
+   float x2 = random(width,width + 50);
+   float y2 = random(height,height + 50);
   
-  //create a asteroidn and add it to space object array
- // asteroid = new Asteroid((float)width/2, (float)height/2, 3.0, 50.0);
+  //create a asteroid and add it to space object array
   asteroid = new Asteroid(x, y, 0.0, 50.0);//top left
   spaceObjects.add(asteroid);
+  
+  //create an new ufo and add to array
+  ufo = new UFO(x2,y2, 0.0,50.0);
+  spaceObjects.add(ufo);
 }
-
 
 
 void keyPressed()

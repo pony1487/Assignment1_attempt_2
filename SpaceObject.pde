@@ -24,5 +24,6 @@ class SpaceObject
    void update()
    {
    }
+   
   
 }
